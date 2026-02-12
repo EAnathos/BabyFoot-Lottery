@@ -1,0 +1,23 @@
+{
+  "name": "BabyGoon",
+  "short_name": "BabyGoon",
+  "description": "Babyfoot lottery wheel",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f101a",
+  "theme_color": "#0f101a",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
