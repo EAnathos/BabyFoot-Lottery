@@ -105,15 +105,13 @@ function updateGoalDisplay() {
 
 // Update spin button state based on goals
 function updateSpinButton() {
-    const goalsUntilSpin = goalsToSpin - (currentGoals % goalsToSpin);
-    
     if (currentGoals > 0 && currentGoals % goalsToSpin === 0) {
         spinButton.disabled = isSpinning;
         spinInfo.textContent = "Ready to spin!";
         spinInfo.classList.add('ready');
     } else {
+        const goalsUntilSpin = goalsToSpin - (currentGoals % goalsToSpin);
         spinButton.disabled = true;
-        goalsNeeded.textContent = goalsUntilSpin;
         spinInfo.innerHTML = `Score <span id="goalsNeeded">${goalsUntilSpin}</span> more goal${goalsUntilSpin === 1 ? '' : 's'} to spin!`;
         spinInfo.classList.remove('ready');
     }
@@ -145,8 +143,8 @@ function decrementGoals() {
         currentGoals--;
         updateGoalDisplay();
         
-        // If there's an active bonus, increment its goal counter
-        if (activeBonus && bonusGoalsRemaining < activeBonus.goalsRequired) {
+        // If there's an active bonus and result display is visible, increment its goal counter
+        if (activeBonus && bonusGoalsRemaining < activeBonus.goalsRequired && !resultDisplay.classList.contains('hidden')) {
             bonusGoalsRemaining++;
             updateBonusStatus();
         }
