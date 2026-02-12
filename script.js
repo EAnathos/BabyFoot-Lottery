@@ -10,6 +10,14 @@ const resultDisplay = document.getElementById('resultDisplay');
 const effectName = document.getElementById('effectName');
 const effectDescription = document.getElementById('effectDescription');
 
+// Configuration constants
+const WHEEL_RADIUS = 200;
+const CENTER_CIRCLE_RADIUS = 30;
+const MIN_SPIN_DURATION = 3000;
+const SPIN_DURATION_VARIANCE = 2000;
+const MIN_ROTATIONS = 5;
+const ROTATION_VARIANCE = 5;
+
 // Load effects data
 fetch('effects.json')
     .then(response => response.json())
@@ -31,7 +39,6 @@ fetch('effects.json')
 function drawWheel(rotation = 0) {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = 200;
     const numSegments = effects.length;
     const anglePerSegment = (2 * Math.PI) / numSegments;
 
@@ -45,7 +52,7 @@ function drawWheel(rotation = 0) {
         // Draw segment
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.arc(centerX, centerY, WHEEL_RADIUS, startAngle, endAngle);
         ctx.closePath();
         ctx.fillStyle = effect.color;
         ctx.fill();
@@ -62,13 +69,13 @@ function drawWheel(rotation = 0) {
         ctx.font = 'bold 16px Arial';
         ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
         ctx.shadowBlur = 3;
-        ctx.fillText(effect.name, radius * 0.65, 5);
+        ctx.fillText(effect.name, WHEEL_RADIUS * 0.65, 5);
         ctx.restore();
     });
 
     // Draw center circle
     ctx.beginPath();
-    ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
+    ctx.arc(centerX, centerY, CENTER_CIRCLE_RADIUS, 0, 2 * Math.PI);
     ctx.fillStyle = 'white';
     ctx.fill();
     ctx.strokeStyle = '#333';
@@ -85,8 +92,8 @@ function spinWheel() {
     resultDisplay.classList.add('hidden');
 
     // Random spin duration and final position
-    const spinDuration = 3000 + Math.random() * 2000; // 3-5 seconds
-    const rotations = 5 + Math.random() * 5; // 5-10 full rotations
+    const spinDuration = MIN_SPIN_DURATION + Math.random() * SPIN_DURATION_VARIANCE; // 3-5 seconds
+    const rotations = MIN_ROTATIONS + Math.random() * ROTATION_VARIANCE; // 5-10 full rotations
     const finalRotation = rotations * 2 * Math.PI;
     
     // Determine winning segment
