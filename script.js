@@ -1,10 +1,9 @@
 // Load effects from JSON
 let effects = [];
 let isSpinning = false;
-let goalsToSpin = 3; // Default value
-let currentGoals = 0;
-let activeBonus = null;
-let bonusGoalsRemaining = 0;
+let wheelRadius = 200;
+let centerCircleRadius = 30;
+let currentRotation = 0;
 
 // Canvas setup
 const canvas = document.getElementById('wheelCanvas');
@@ -14,15 +13,8 @@ const resultDisplay = document.getElementById('resultDisplay');
 const effectName = document.getElementById('effectName');
 const effectDescription = document.getElementById('effectDescription');
 const bonusStatus = document.getElementById('bonusStatus');
-const goalCount = document.getElementById('goalCount');
-const incrementGoalsBtn = document.getElementById('incrementGoals');
-const decrementGoalsBtn = document.getElementById('decrementGoals');
-const spinInfo = document.getElementById('spinInfo');
-const goalsNeeded = document.getElementById('goalsNeeded');
 
 // Configuration constants
-const WHEEL_RADIUS = 200;
-const CENTER_CIRCLE_RADIUS = 30;
 const MIN_SPIN_DURATION = 3000;
 const SPIN_DURATION_VARIANCE = 2000;
 const MIN_ROTATIONS = 5;
@@ -30,33 +22,61 @@ const ROTATION_VARIANCE = 5;
 
 // Load effects data
 fetch('effects.json')
-    .then(response => response.json())
+fetch('effects.json', { cache: 'no-store' })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
+        if (!Array.isArray(data.effects) || data.effects.length === 0) {
+            throw new Error('Invalid effects.json format');
+        }
         effects = data.effects;
-        goalsToSpin = data.goalsToSpin || 3;
-        goalsNeeded.textContent = goalsToSpin;
+        resizeCanvas();
         drawWheel(0);
         updateSpinButton();
     })
     .catch(error => {
         console.error('Error loading effects:', error);
-        // Fallback effects if JSON fails to load
-        effects = [
-            { id: 1, name: "Effect 1", description: "First effect", color: "#FFD700", duration: 3000, goalsRequired: 2 },
-            { id: 2, name: "Effect 2", description: "Second effect", color: "#4169E1", duration: 3000, goalsRequired: 2 }
-        ];
+        effects = [];
+        resizeCanvas();
         drawWheel(0);
         updateSpinButton();
+        showLoadError();
     });
+
+function showLoadError() {
+    effectName.textContent = 'Chargement impossible';
+    effectDescription.textContent = 'Ouvre la page avec un serveur local pour lire effects.json.';
+    bonusStatus.textContent = '';
+    bonusStatus.classList.remove('active');
+    resultDisplay.style.background = 'rgba(17, 16, 26, 0.9)';
+    resultDisplay.classList.remove('hidden');
+}
+
+function resizeCanvas() {
+    const maxSize = Math.min(window.innerWidth * 0.78, 520);
+    const size = Math.max(240, Math.floor(maxSize));
+    canvas.width = size;
+    canvas.height = size;
+    wheelRadius = Math.max(120, Math.floor(size / 2 - 18));
+    centerCircleRadius = Math.max(18, Math.floor(size * 0.06));
+}
 
 // Draw the wheel
 function drawWheel(rotation = 0) {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const numSegments = effects.length;
-    const anglePerSegment = (2 * Math.PI) / numSegments;
+    const anglePerSegment = numSegments > 0 ? (2 * Math.PI) / numSegments : 0;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (numSegments === 0) {
+        return;
+    }
 
     // Draw segments
     effects.forEach((effect, index) => {
@@ -66,7 +86,7 @@ function drawWheel(rotation = 0) {
         // Draw segment
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, WHEEL_RADIUS, startAngle, endAngle);
+        ctx.arc(centerX, centerY, wheelRadius, startAngle, endAngle);
         ctx.closePath();
         ctx.fillStyle = effect.color;
         ctx.fill();
@@ -80,16 +100,17 @@ function drawWheel(rotation = 0) {
         ctx.rotate(startAngle + anglePerSegment / 2);
         ctx.textAlign = 'center';
         ctx.fillStyle = 'white';
-        ctx.font = 'bold 16px Arial';
+        const fontSize = Math.max(12, Math.floor(wheelRadius * 0.085));
+        ctx.font = `bold ${fontSize}px Arial`;
         ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
         ctx.shadowBlur = 3;
-        ctx.fillText(effect.name, WHEEL_RADIUS * 0.65, 5);
+        ctx.fillText(effect.name, wheelRadius * 0.65, 5);
         ctx.restore();
     });
 
     // Draw center circle
     ctx.beginPath();
-    ctx.arc(centerX, centerY, CENTER_CIRCLE_RADIUS, 0, 2 * Math.PI);
+    ctx.arc(centerX, centerY, centerCircleRadius, 0, 2 * Math.PI);
     ctx.fillStyle = 'white';
     ctx.fill();
     ctx.strokeStyle = '#333';
@@ -97,83 +118,18 @@ function drawWheel(rotation = 0) {
     ctx.stroke();
 }
 
-// Update goal count display and spin button state
-function updateGoalDisplay() {
-    goalCount.textContent = currentGoals;
-    updateSpinButton();
-}
-
-// Update spin button state based on goals
+// Update spin button state
 function updateSpinButton() {
-    if (currentGoals > 0 && currentGoals % goalsToSpin === 0) {
-        spinButton.disabled = isSpinning;
-        spinInfo.textContent = "Ready to spin!";
-        spinInfo.classList.add('ready');
-    } else {
-        const goalsUntilSpin = goalsToSpin - (currentGoals % goalsToSpin);
-        spinButton.disabled = true;
-        spinInfo.innerHTML = `Score <span id="goalsNeeded">${goalsUntilSpin}</span> more goal${goalsUntilSpin === 1 ? '' : 's'} to spin!`;
-        spinInfo.classList.remove('ready');
-    }
-}
-
-// Increment goals
-function incrementGoals() {
-    currentGoals++;
-    updateGoalDisplay();
-    
-    // If there's an active bonus, decrement its goal counter
-    if (activeBonus && bonusGoalsRemaining > 0) {
-        bonusGoalsRemaining--;
-        updateBonusStatus();
-        
-        if (bonusGoalsRemaining === 0) {
-            // Bonus expired
-            setTimeout(() => {
-                resultDisplay.classList.add('hidden');
-                activeBonus = null;
-            }, 1000);
-        }
-    }
-}
-
-// Decrement goals
-function decrementGoals() {
-    if (currentGoals > 0) {
-        currentGoals--;
-        updateGoalDisplay();
-        
-        // If there's an active bonus and result display is visible, increment its goal counter
-        if (activeBonus && bonusGoalsRemaining < activeBonus.goalsRequired && !resultDisplay.classList.contains('hidden')) {
-            bonusGoalsRemaining++;
-            updateBonusStatus();
-        }
-    }
-}
-
-// Update bonus status display
-function updateBonusStatus() {
-    if (activeBonus && bonusGoalsRemaining > 0) {
-        bonusStatus.textContent = `⚡ Active for ${bonusGoalsRemaining} more goal${bonusGoalsRemaining === 1 ? '' : 's'}!`;
-        bonusStatus.classList.add('active');
-    } else {
-        bonusStatus.textContent = '';
-        bonusStatus.classList.remove('active');
-    }
+    spinButton.disabled = isSpinning || effects.length === 0;
 }
 
 // Spin the wheel
 function spinWheel() {
     if (isSpinning || effects.length === 0) return;
-    if (currentGoals === 0 || currentGoals % goalsToSpin !== 0) return;
 
     isSpinning = true;
     spinButton.disabled = true;
     resultDisplay.classList.add('hidden');
-    
-    // Reset goals after spinning
-    currentGoals = 0;
-    updateGoalDisplay();
 
     // Random spin duration and final position
     const spinDuration = MIN_SPIN_DURATION + Math.random() * SPIN_DURATION_VARIANCE; // 3-5 seconds
@@ -188,8 +144,6 @@ function spinWheel() {
 
     // Animation
     const startTime = Date.now();
-    let currentRotation = 0;
-
     function animate() {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / spinDuration, 1);
@@ -221,10 +175,13 @@ function showResult(effect) {
     // Set background color based on effect
     resultDisplay.style.background = `linear-gradient(135deg, ${effect.color}88, ${effect.color}44)`;
     
-    // Set active bonus
-    activeBonus = effect;
-    bonusGoalsRemaining = effect.goalsRequired;
-    updateBonusStatus();
+    if (typeof effect.goalsRequired === 'number') {
+        bonusStatus.textContent = `⚡ Bonus: ${effect.goalsRequired} but${effect.goalsRequired === 1 ? '' : 's'}`;
+        bonusStatus.classList.add('active');
+    } else {
+        bonusStatus.textContent = '';
+        bonusStatus.classList.remove('active');
+    }
     
     resultDisplay.classList.remove('hidden');
     resultDisplay.classList.add('effect-flash');
@@ -239,8 +196,10 @@ function showResult(effect) {
 
 // Event listeners
 spinButton.addEventListener('click', spinWheel);
-incrementGoalsBtn.addEventListener('click', incrementGoals);
-decrementGoalsBtn.addEventListener('click', decrementGoals);
+window.addEventListener('resize', () => {
+    resizeCanvas();
+    drawWheel(currentRotation);
+});
 
 // Allow Enter key to spin
 document.addEventListener('keypress', (e) => {
