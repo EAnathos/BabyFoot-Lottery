@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyGoon - Babyfoot Lottery Wheel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 BabyGoon 🎯</h1>
+        <h2>Babyfoot Lottery Wheel</h2>
+        
+        <div class="wheel-container">
+            <canvas id="wheelCanvas" width="500" height="500"></canvas>
+            <div class="wheel-pointer">▼</div>
+        </div>
+        
+        <button id="spinButton" class="spin-button">SPIN THE WHEEL!</button>
+        
+        <div id="resultDisplay" class="result-display hidden">
+            <div class="result-content">
+                <h3 id="effectName"></h3>
+                <p id="effectDescription"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
