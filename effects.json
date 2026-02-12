@@ -1,0 +1,69 @@
+{
+  "goalsToSpin": 3,
+  "effects": [
+    {
+      "id": 1,
+      "name": "Goal Celebration",
+      "description": "Disco lights flash across the table!",
+      "color": "#FFD700",
+      "duration": 5000,
+      "goalsRequired": 2
+    },
+    {
+      "id": 2,
+      "name": "Slow Motion",
+      "description": "Everything moves in slow motion",
+      "color": "#4169E1",
+      "duration": 3000,
+      "goalsRequired": 3
+    },
+    {
+      "id": 3,
+      "name": "Lightning Round",
+      "description": "Next goal counts double!",
+      "color": "#FF6347",
+      "duration": 4000,
+      "goalsRequired": 1
+    },
+    {
+      "id": 4,
+      "name": "Swap Teams",
+      "description": "Players switch sides!",
+      "color": "#32CD32",
+      "duration": 3000,
+      "goalsRequired": 2
+    },
+    {
+      "id": 5,
+      "name": "Golden Ball",
+      "description": "Next point is worth 2 points!",
+      "color": "#FFA500",
+      "duration": 4000,
+      "goalsRequired": 1
+    },
+    {
+      "id": 6,
+      "name": "Freeze Frame",
+      "description": "Defenders can't move!",
+      "color": "#00CED1",
+      "duration": 3500,
+      "goalsRequired": 2
+    },
+    {
+      "id": 7,
+      "name": "Power Shot",
+      "description": "Attackers get extra power!",
+      "color": "#FF1493",
+      "duration": 4000,
+      "goalsRequired": 2
+    },
+    {
+      "id": 8,
+      "name": "Penalty Shot",
+      "description": "One player gets a free shot!",
+      "color": "#9370DB",
+      "duration": 3000,
+      "goalsRequired": 1
+    }
+  ]
+}
