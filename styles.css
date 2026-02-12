@@ -139,12 +139,12 @@ h2 {
 }
 
 #wheelCanvas {
-    width: min(78vw, 520px);
+    width: min(82vw, 560px);
     height: auto;
     border-radius: 50%;
     background: #fdfaf4;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-    border: 6px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     cursor: pointer;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
