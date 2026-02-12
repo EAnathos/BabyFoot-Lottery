@@ -175,7 +175,7 @@ function showResult(effect) {
     resultDisplay.style.background = `linear-gradient(135deg, ${effect.color}88, ${effect.color}44)`;
     
     if (typeof effect.goalsRequired === 'number') {
-        bonusStatus.textContent = `⚡ Bonus: ${effect.goalsRequired} but${effect.goalsRequired === 1 ? '' : 's'}`;
+        bonusStatus.textContent = `⚡ Durée: ${effect.goalsRequired} but${effect.goalsRequired === 1 ? '' : 's'}`;
         bonusStatus.classList.add('active');
     } else {
         bonusStatus.textContent = '';
