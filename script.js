@@ -13,18 +13,21 @@ const resultDisplay = document.getElementById('resultDisplay');
 const effectName = document.getElementById('effectName');
 const effectDescription = document.getElementById('effectDescription');
 const bonusStatus = document.getElementById('bonusStatus');
+const rareBadge = document.getElementById('rareBadge');
 const wheelHint = document.querySelector('.wheel-hint');
 const cheatBlue = document.getElementById('cheatBlue');
 const cheatRed = document.getElementById('cheatRed');
+const fullscreenToggle = document.getElementById('fullscreenToggle');
 
 // Configuration constants
-const MIN_SPIN_DURATION = 3000;
+const MIN_SPIN_DURATION = 2000;
 const SPIN_DURATION_VARIANCE = 2000;
 const MIN_ROTATIONS = 5;
 const ROTATION_VARIANCE = 5;
+const DEFAULT_WEIGHT = 10;
+const RARE_WEIGHT = 2;
 
 // Load effects data
-fetch('effects.json')
 fetch('effects.json', { cache: 'no-store' })
     .then(response => {
         if (!response.ok) {
@@ -36,7 +39,16 @@ fetch('effects.json', { cache: 'no-store' })
         if (!Array.isArray(data.effects) || data.effects.length === 0) {
             throw new Error('Invalid effects.json format');
         }
-        effects = data.effects;
+        effects = data.effects.map((effect) => {
+            const baseWeight = typeof effect.weight === 'number' ? effect.weight : DEFAULT_WEIGHT;
+            const weight = Math.max(0, baseWeight);
+            const isRare = weight <= RARE_WEIGHT;
+            return {
+                ...effect,
+                isRare,
+                weight
+            };
+        });
         resizeCanvas();
         drawWheel(0);
         updateSpinButton();
@@ -126,11 +138,32 @@ function updateSpinButton() {
     // No button anymore; keep API for enabling/disabling spin via click.
 }
 
-function getWinningEffectForRotation(finalRotation) {
+function getRotationForIndex(targetIndex) {
     const segmentAngle = (2 * Math.PI) / effects.length;
-    const normalizedRotation = finalRotation % (2 * Math.PI);
-    const winningIndex = Math.floor((2 * Math.PI - normalizedRotation) / segmentAngle) % effects.length;
-    return effects[winningIndex];
+    const targetRotation = (2 * Math.PI) - (targetIndex + 0.5) * segmentAngle;
+    return ((targetRotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+}
+
+function pickWeightedEffect() {
+    const totalWeight = effects.reduce((sum, effect) => {
+        const weight = typeof effect.weight === 'number' ? Math.max(0, effect.weight) : 0;
+        return sum + weight;
+    }, 0);
+
+    if (totalWeight <= 0) {
+        return effects[0];
+    }
+
+    let roll = Math.random() * totalWeight;
+    for (const effect of effects) {
+        const weight = typeof effect.weight === 'number' ? Math.max(0, effect.weight) : 0;
+        roll -= weight;
+        if (roll <= 0) {
+            return effect;
+        }
+    }
+
+    return effects[effects.length - 1];
 }
 
 function runSpin(finalRotation, winningEffect) {
@@ -166,8 +199,9 @@ function spinWheel() {
     if (isSpinning || effects.length === 0) return;
 
     const rotations = Math.floor(MIN_ROTATIONS + Math.random() * ROTATION_VARIANCE); // 5-9 full rotations
-    const finalRotation = rotations * 2 * Math.PI;
-    const winningEffect = getWinningEffectForRotation(finalRotation);
+    const winningEffect = pickWeightedEffect();
+    const targetIndex = effects.indexOf(winningEffect);
+    const finalRotation = rotations * 2 * Math.PI + getRotationForIndex(targetIndex);
 
     runSpin(finalRotation, winningEffect);
 }
@@ -186,6 +220,16 @@ function showResult(effect) {
     } else {
         bonusStatus.textContent = '';
         bonusStatus.classList.remove('active');
+    }
+
+    if (rareBadge) {
+        if (effect.isRare) {
+            rareBadge.textContent = 'Rare *';
+            rareBadge.classList.remove('is-hidden');
+        } else {
+            rareBadge.textContent = '';
+            rareBadge.classList.add('is-hidden');
+        }
     }
     
     resultDisplay.classList.remove('hidden');
@@ -220,10 +264,7 @@ function showCheatResult(effectId) {
     }
 
     const rotations = Math.floor(MIN_ROTATIONS + Math.random() * ROTATION_VARIANCE); // 5-9 full rotations
-    const segmentAngle = (2 * Math.PI) / effects.length;
-    const targetRotation = (2 * Math.PI) - (targetIndex + 0.5) * segmentAngle;
-    const normalizedRotation = ((targetRotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-    const finalRotation = rotations * 2 * Math.PI + normalizedRotation;
+    const finalRotation = rotations * 2 * Math.PI + getRotationForIndex(targetIndex);
 
     runSpin(finalRotation, forcedEffect);
 }
@@ -267,3 +308,25 @@ if (cheatRed) {
         }
     });
 }
+
+function updateFullscreenToggle() {
+    if (!fullscreenToggle) {
+        return;
+    }
+    const isFullscreen = Boolean(document.fullscreenElement);
+    fullscreenToggle.textContent = isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen';
+    fullscreenToggle.setAttribute('aria-pressed', isFullscreen ? 'true' : 'false');
+}
+
+if (fullscreenToggle) {
+    fullscreenToggle.addEventListener('click', async () => {
+        if (document.fullscreenElement) {
+            await document.exitFullscreen();
+        } else if (document.documentElement.requestFullscreen) {
+            await document.documentElement.requestFullscreen();
+        }
+    });
+    updateFullscreenToggle();
+}
+
+document.addEventListener('fullscreenchange', updateFullscreenToggle);

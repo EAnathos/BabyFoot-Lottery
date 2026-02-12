@@ -9,6 +9,10 @@
 <body>
     <div class="container">
         <h1><span class="title-target" id="cheatBlue" aria-label="Penalty bleu">🎯</span> BabyGoon <span class="title-target" id="cheatRed" aria-label="Penalty rouge">🎯</span></h1>
+
+        <div class="top-actions">
+            <button class="fullscreen-toggle" id="fullscreenToggle" type="button" aria-pressed="false">Enter fullscreen</button>
+        </div>
         
         <div class="wheel-container">
             <canvas id="wheelCanvas" width="500" height="500"></canvas>
@@ -21,6 +25,9 @@
         <div id="resultDisplay" class="result-display hidden">
             <div class="result-content">
                 <h3 id="effectName"></h3>
+                <div class="result-meta">
+                    <span id="rareBadge" class="rare-badge is-hidden">Rare *</span>
+                </div>
                 <p id="effectDescription"></p>
                 <div class="bonus-status" id="bonusStatus"></div>
             </div>
