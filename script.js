@@ -1,6 +1,10 @@
 // Load effects from JSON
 let effects = [];
 let isSpinning = false;
+let goalsToSpin = 3; // Default value
+let currentGoals = 0;
+let activeBonus = null;
+let bonusGoalsRemaining = 0;
 
 // Canvas setup
 const canvas = document.getElementById('wheelCanvas');
@@ -9,6 +13,12 @@ const spinButton = document.getElementById('spinButton');
 const resultDisplay = document.getElementById('resultDisplay');
 const effectName = document.getElementById('effectName');
 const effectDescription = document.getElementById('effectDescription');
+const bonusStatus = document.getElementById('bonusStatus');
+const goalCount = document.getElementById('goalCount');
+const incrementGoalsBtn = document.getElementById('incrementGoals');
+const decrementGoalsBtn = document.getElementById('decrementGoals');
+const spinInfo = document.getElementById('spinInfo');
+const goalsNeeded = document.getElementById('goalsNeeded');
 
 // Configuration constants
 const WHEEL_RADIUS = 200;
@@ -23,16 +33,20 @@ fetch('effects.json')
     .then(response => response.json())
     .then(data => {
         effects = data.effects;
+        goalsToSpin = data.goalsToSpin || 3;
+        goalsNeeded.textContent = goalsToSpin;
         drawWheel(0);
+        updateSpinButton();
     })
     .catch(error => {
         console.error('Error loading effects:', error);
         // Fallback effects if JSON fails to load
         effects = [
-            { id: 1, name: "Effect 1", description: "First effect", color: "#FFD700", duration: 3000 },
-            { id: 2, name: "Effect 2", description: "Second effect", color: "#4169E1", duration: 3000 }
+            { id: 1, name: "Effect 1", description: "First effect", color: "#FFD700", duration: 3000, goalsRequired: 2 },
+            { id: 2, name: "Effect 2", description: "Second effect", color: "#4169E1", duration: 3000, goalsRequired: 2 }
         ];
         drawWheel(0);
+        updateSpinButton();
     });
 
 // Draw the wheel
@@ -83,13 +97,85 @@ function drawWheel(rotation = 0) {
     ctx.stroke();
 }
 
+// Update goal count display and spin button state
+function updateGoalDisplay() {
+    goalCount.textContent = currentGoals;
+    updateSpinButton();
+}
+
+// Update spin button state based on goals
+function updateSpinButton() {
+    const goalsUntilSpin = goalsToSpin - (currentGoals % goalsToSpin);
+    
+    if (currentGoals > 0 && currentGoals % goalsToSpin === 0) {
+        spinButton.disabled = isSpinning;
+        spinInfo.textContent = "Ready to spin!";
+        spinInfo.classList.add('ready');
+    } else {
+        spinButton.disabled = true;
+        goalsNeeded.textContent = goalsUntilSpin;
+        spinInfo.innerHTML = `Score <span id="goalsNeeded">${goalsUntilSpin}</span> more goal${goalsUntilSpin === 1 ? '' : 's'} to spin!`;
+        spinInfo.classList.remove('ready');
+    }
+}
+
+// Increment goals
+function incrementGoals() {
+    currentGoals++;
+    updateGoalDisplay();
+    
+    // If there's an active bonus, decrement its goal counter
+    if (activeBonus && bonusGoalsRemaining > 0) {
+        bonusGoalsRemaining--;
+        updateBonusStatus();
+        
+        if (bonusGoalsRemaining === 0) {
+            // Bonus expired
+            setTimeout(() => {
+                resultDisplay.classList.add('hidden');
+                activeBonus = null;
+            }, 1000);
+        }
+    }
+}
+
+// Decrement goals
+function decrementGoals() {
+    if (currentGoals > 0) {
+        currentGoals--;
+        updateGoalDisplay();
+        
+        // If there's an active bonus, increment its goal counter
+        if (activeBonus && bonusGoalsRemaining < activeBonus.goalsRequired) {
+            bonusGoalsRemaining++;
+            updateBonusStatus();
+        }
+    }
+}
+
+// Update bonus status display
+function updateBonusStatus() {
+    if (activeBonus && bonusGoalsRemaining > 0) {
+        bonusStatus.textContent = `⚡ Active for ${bonusGoalsRemaining} more goal${bonusGoalsRemaining === 1 ? '' : 's'}!`;
+        bonusStatus.classList.add('active');
+    } else {
+        bonusStatus.textContent = '';
+        bonusStatus.classList.remove('active');
+    }
+}
+
 // Spin the wheel
 function spinWheel() {
     if (isSpinning || effects.length === 0) return;
+    if (currentGoals === 0 || currentGoals % goalsToSpin !== 0) return;
 
     isSpinning = true;
     spinButton.disabled = true;
     resultDisplay.classList.add('hidden');
+    
+    // Reset goals after spinning
+    currentGoals = 0;
+    updateGoalDisplay();
 
     // Random spin duration and final position
     const spinDuration = MIN_SPIN_DURATION + Math.random() * SPIN_DURATION_VARIANCE; // 3-5 seconds
@@ -137,6 +223,11 @@ function showResult(effect) {
     // Set background color based on effect
     resultDisplay.style.background = `linear-gradient(135deg, ${effect.color}88, ${effect.color}44)`;
     
+    // Set active bonus
+    activeBonus = effect;
+    bonusGoalsRemaining = effect.goalsRequired;
+    updateBonusStatus();
+    
     resultDisplay.classList.remove('hidden');
     resultDisplay.classList.add('effect-flash');
 
@@ -144,15 +235,14 @@ function showResult(effect) {
     setTimeout(() => {
         resultDisplay.classList.remove('effect-flash');
     }, 500);
-
-    // Auto-hide after duration
-    setTimeout(() => {
-        resultDisplay.classList.add('hidden');
-    }, effect.duration);
+    
+    // Note: No auto-hide timer - bonus stays until goals are scored
 }
 
 // Event listeners
 spinButton.addEventListener('click', spinWheel);
+incrementGoalsBtn.addEventListener('click', incrementGoals);
+decrementGoalsBtn.addEventListener('click', decrementGoals);
 
 // Allow Enter key to spin
 document.addEventListener('keypress', (e) => {

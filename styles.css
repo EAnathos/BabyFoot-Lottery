@@ -34,6 +34,79 @@ h2 {
     opacity: 0.9;
 }
 
+.goal-tracker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.goal-button {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.goal-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.goal-button:active {
+    transform: translateY(0);
+}
+
+.goal-display {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.goal-count {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.goal-label {
+    font-size: 0.9rem;
+    text-align: center;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+.spin-info {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.spin-info.ready {
+    background: linear-gradient(135deg, rgba(50, 205, 50, 0.3), rgba(34, 139, 34, 0.3));
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.spin-info span {
+    font-weight: bold;
+    color: #FFD700;
+}
+
 @keyframes pulse {
     0%, 100% {
         transform: scale(1);
@@ -135,6 +208,29 @@ h2 {
 .result-content p {
     font-size: 1.2rem;
     opacity: 0.9;
+}
+
+.bonus-status {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.bonus-status.active {
+    background: rgba(50, 205, 50, 0.3);
+    animation: bonusPulse 2s ease-in-out infinite;
+}
+
+@keyframes bonusPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
 }
 
 .spinning {
