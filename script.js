@@ -18,6 +18,8 @@ const wheelHint = document.querySelector('.wheel-hint');
 const cheatBlue = document.getElementById('cheatBlue');
 const cheatRed = document.getElementById('cheatRed');
 const fullscreenToggle = document.getElementById('fullscreenToggle');
+const rulesToggle = document.getElementById('rulesToggle');
+const rulesModal = document.getElementById('rulesModal');
 
 // Configuration constants
 const MIN_SPIN_DURATION = 2000;
@@ -105,8 +107,8 @@ function drawWheel(rotation = 0) {
         ctx.closePath();
         ctx.fillStyle = effect.color;
         ctx.fill();
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+        ctx.lineWidth = 1.5;
         ctx.stroke();
 
         // Draw text
@@ -330,6 +332,39 @@ if (fullscreenToggle) {
 }
 
 document.addEventListener('fullscreenchange', updateFullscreenToggle);
+
+if (rulesToggle && rulesModal) {
+    const closeRules = () => {
+        rulesModal.classList.add('is-hidden');
+        rulesToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    const openRules = () => {
+        rulesModal.classList.remove('is-hidden');
+        rulesToggle.setAttribute('aria-expanded', 'true');
+    };
+
+    rulesToggle.addEventListener('click', () => {
+        if (rulesModal.classList.contains('is-hidden')) {
+            openRules();
+        } else {
+            closeRules();
+        }
+    });
+
+    rulesModal.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target instanceof HTMLElement && target.closest('[data-rules-close]')) {
+            closeRules();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !rulesModal.classList.contains('is-hidden')) {
+            closeRules();
+        }
+    });
+}
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

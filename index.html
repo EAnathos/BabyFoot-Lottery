@@ -14,6 +14,7 @@
 
         <div class="top-actions">
             <button class="fullscreen-toggle" id="fullscreenToggle" type="button" aria-pressed="false">Enter fullscreen</button>
+            <button class="rules-toggle" id="rulesToggle" type="button" aria-expanded="false" aria-controls="rulesModal">Règles ?</button>
         </div>
         
         <div class="wheel-container">
@@ -32,6 +33,18 @@
                 </div>
                 <p id="effectDescription"></p>
                 <div class="bonus-status" id="bonusStatus"></div>
+            </div>
+        </div>
+
+        <div class="rules-modal is-hidden" id="rulesModal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+            <div class="rules-backdrop" data-rules-close></div>
+            <div class="rules-panel">
+                <button class="rules-close" type="button" aria-label="Fermer" data-rules-close>✕</button>
+                <h3 id="rulesTitle">Règles supplémentaires</h3>
+                <ul>
+                    <li>10 - 0 : Sous le baby</li>
+                    <li>Balle attrapée en l'air : 1 points</li>
+                </ul>
             </div>
         </div>
     </div>
