@@ -107,6 +107,13 @@ h2 {
     background: #fdfaf4;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
     border: 6px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wheel-container:hover #wheelCanvas {
+    transform: scale(1.02);
+    box-shadow: 0 26px 52px rgba(0, 0, 0, 0.45);
 }
 
 .wheel-pointer {
@@ -150,6 +157,22 @@ h2 {
 .spin-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.wheel-hint {
+    margin-top: clamp(6px, 2vw, 12px);
+    font-size: clamp(0.95rem, 3vw, 1.15rem);
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.wheel-hint.hidden {
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
 }
 
 .result-display {

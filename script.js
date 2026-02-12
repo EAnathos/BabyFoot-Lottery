@@ -4,15 +4,16 @@ let isSpinning = false;
 let wheelRadius = 200;
 let centerCircleRadius = 30;
 let currentRotation = 0;
+let hasSpun = false;
 
 // Canvas setup
 const canvas = document.getElementById('wheelCanvas');
 const ctx = canvas.getContext('2d');
-const spinButton = document.getElementById('spinButton');
 const resultDisplay = document.getElementById('resultDisplay');
 const effectName = document.getElementById('effectName');
 const effectDescription = document.getElementById('effectDescription');
 const bonusStatus = document.getElementById('bonusStatus');
+const wheelHint = document.querySelector('.wheel-hint');
 
 // Configuration constants
 const MIN_SPIN_DURATION = 3000;
@@ -120,7 +121,7 @@ function drawWheel(rotation = 0) {
 
 // Update spin button state
 function updateSpinButton() {
-    spinButton.disabled = isSpinning || effects.length === 0;
+    // No button anymore; keep API for enabling/disabling spin via click.
 }
 
 // Spin the wheel
@@ -128,7 +129,6 @@ function spinWheel() {
     if (isSpinning || effects.length === 0) return;
 
     isSpinning = true;
-    spinButton.disabled = true;
     resultDisplay.classList.add('hidden');
 
     // Random spin duration and final position
@@ -160,7 +160,6 @@ function spinWheel() {
             // Spin complete
             showResult(winningEffect);
             isSpinning = false;
-            spinButton.disabled = false;
         }
     }
 
@@ -186,6 +185,13 @@ function showResult(effect) {
     resultDisplay.classList.remove('hidden');
     resultDisplay.classList.add('effect-flash');
 
+    if (!hasSpun) {
+        hasSpun = true;
+        if (wheelHint) {
+            wheelHint.classList.add('hidden');
+        }
+    }
+
     // Remove flash animation after it completes
     setTimeout(() => {
         resultDisplay.classList.remove('effect-flash');
@@ -195,7 +201,15 @@ function showResult(effect) {
 }
 
 // Event listeners
-spinButton.addEventListener('click', spinWheel);
+canvas.addEventListener('click', () => {
+    if (effects.length === 0) {
+        showLoadError();
+        return;
+    }
+    if (!isSpinning) {
+        spinWheel();
+    }
+});
 window.addEventListener('resize', () => {
     resizeCanvas();
     drawWheel(currentRotation);
