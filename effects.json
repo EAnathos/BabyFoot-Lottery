@@ -4,29 +4,99 @@
     {
       "id": 4,
       "name": "Swap",
-      "description": "Les joueurs changent de poste!",
-      "color": "#32CD32",
+      "description": "Les joueurs changent de poste !",
+      "color": "#2E8B57",
       "goalsRequired": 2
     },
     {
       "id": 5,
       "name": "Golden Ball",
-      "description": "Le prochain point vaut 2 double!",
-      "color": "#FFA500",
+      "description": "Le prochain point vaut double !",
+      "color": "#F4B400",
       "goalsRequired": 1
     },
     {
       "id": 6,
       "name": "Freeze Frame",
-      "description": "Les défenseurs ne peuvent pas bouger!",
-      "color": "#00CED1",
-      "goalsRequired": 2
+      "description": "Les défenseurs ne peuvent pas bouger (le goal si) !",
+      "color": "#00A9B7",
+      "goalsRequired": 1
+    },
+    {
+      "id": 7,
+      "name": "Haut les pieds",
+      "description": "Les centraux doivent lever les pieds vers le ciel !",
+      "color": "#5DADE2",
+      "goalsRequired": 1
     },
     {
       "id": 8,
       "name": "Penalty Shot",
-      "description": "Pénalty pour les bleus!",
-      "color": "#9370DB",
+      "description": "Pénalty pour les bleus !",
+      "color": "#4F5BD5",
+      "goalsRequired": 1
+    },
+    {
+      "id": 9,
+      "name": "Penalty Shot",
+      "description": "Pénalty pour les rouges !",
+      "color": "#E74C3C",
+      "goalsRequired": 1
+    },
+    {
+      "id": 10,
+      "name": "Repêche",
+      "description": "Repêchage autorisé !",
+      "color": "#9B59B6",
+      "goalsRequired": 1
+    },
+    {
+      "id": 11,
+      "name": "Hand Switch",
+      "description": "Inversez les mains !",
+      "color": "#16A085",
+      "goalsRequired": 1
+    },
+    {
+      "id": 12,
+      "name": "Quadrimino",
+      "description": "Le prochain demi fera un Quadrimino !",
+      "color": "#8E44AD",
+      "goalsRequired": 1
+    },
+    {
+      "id": 13,
+      "name": "Petite bite",
+      "description": "Les pichettes sont autorisées !",
+      "color": "#D35400",
+      "goalsRequired": 1
+    },
+    {
+      "id": 14,
+      "name": "Défenseur ou attaquant ?",
+      "description": "Le prochain but de la défense comptera double !",
+      "color": "#2C3E50",
+      "goalsRequired": 1
+    },
+    {
+      "id": 15,
+      "name": "Goal ou attaquant ?",
+      "description": "Le prochain but du goal comptera double !",
+      "color": "#1ABC9C",
+      "goalsRequired": 1
+    },
+    {
+      "id": 16,
+      "name": "Néant ?",
+      "description": "Aucun effet, la roue a parlé !",
+      "color": "#7F8C8D",
+      "goalsRequired": 1
+    },
+    {
+      "id": 17,
+      "name": "Capotte ?",
+      "description": "La prochaine gamelle vaut triple !",
+      "color": "#7F8C8D",
       "goalsRequired": 1
     }
   ]

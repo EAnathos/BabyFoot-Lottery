@@ -111,9 +111,10 @@ h2 {
 
 .wheel-pointer {
     position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    right: -20px;
+    left: auto;
+    transform: translateY(-50%);
     font-size: clamp(2rem, 6vw, 3rem);
     color: var(--accent);
     text-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
