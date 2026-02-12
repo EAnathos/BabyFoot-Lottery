@@ -14,6 +14,8 @@ const effectName = document.getElementById('effectName');
 const effectDescription = document.getElementById('effectDescription');
 const bonusStatus = document.getElementById('bonusStatus');
 const wheelHint = document.querySelector('.wheel-hint');
+const cheatBlue = document.getElementById('cheatBlue');
+const cheatRed = document.getElementById('cheatRed');
 
 // Configuration constants
 const MIN_SPIN_DURATION = 3000;
@@ -124,26 +126,20 @@ function updateSpinButton() {
     // No button anymore; keep API for enabling/disabling spin via click.
 }
 
-// Spin the wheel
-function spinWheel() {
-    if (isSpinning || effects.length === 0) return;
-
-    isSpinning = true;
-    resultDisplay.classList.add('hidden');
-
-    // Random spin duration and final position
-    const spinDuration = MIN_SPIN_DURATION + Math.random() * SPIN_DURATION_VARIANCE; // 3-5 seconds
-    const rotations = MIN_ROTATIONS + Math.random() * ROTATION_VARIANCE; // 5-10 full rotations
-    const finalRotation = rotations * 2 * Math.PI;
-    
-    // Determine winning segment
+function getWinningEffectForRotation(finalRotation) {
     const segmentAngle = (2 * Math.PI) / effects.length;
     const normalizedRotation = finalRotation % (2 * Math.PI);
     const winningIndex = Math.floor((2 * Math.PI - normalizedRotation) / segmentAngle) % effects.length;
-    const winningEffect = effects[winningIndex];
+    return effects[winningIndex];
+}
 
-    // Animation
+function runSpin(finalRotation, winningEffect) {
+    isSpinning = true;
+    resultDisplay.classList.add('hidden');
+
+    const spinDuration = MIN_SPIN_DURATION + Math.random() * SPIN_DURATION_VARIANCE; // 3-5 seconds
     const startTime = Date.now();
+
     function animate() {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / spinDuration, 1);
@@ -157,13 +153,23 @@ function spinWheel() {
         if (progress < 1) {
             requestAnimationFrame(animate);
         } else {
-            // Spin complete
             showResult(winningEffect);
             isSpinning = false;
         }
     }
 
     animate();
+}
+
+// Spin the wheel
+function spinWheel() {
+    if (isSpinning || effects.length === 0) return;
+
+    const rotations = Math.floor(MIN_ROTATIONS + Math.random() * ROTATION_VARIANCE); // 5-9 full rotations
+    const finalRotation = rotations * 2 * Math.PI;
+    const winningEffect = getWinningEffectForRotation(finalRotation);
+
+    runSpin(finalRotation, winningEffect);
 }
 
 // Show the result
@@ -200,6 +206,28 @@ function showResult(effect) {
     // Note: No auto-hide timer - bonus stays until goals are scored
 }
 
+function showCheatResult(effectId) {
+    if (effects.length === 0) {
+        return;
+    }
+    const forcedEffect = effects.find((effect) => effect.id === effectId);
+    if (!forcedEffect) {
+        return;
+    }
+    const targetIndex = effects.findIndex((effect) => effect.id === effectId);
+    if (targetIndex === -1) {
+        return;
+    }
+
+    const rotations = Math.floor(MIN_ROTATIONS + Math.random() * ROTATION_VARIANCE); // 5-9 full rotations
+    const segmentAngle = (2 * Math.PI) / effects.length;
+    const targetRotation = (2 * Math.PI) - (targetIndex + 0.5) * segmentAngle;
+    const normalizedRotation = ((targetRotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    const finalRotation = rotations * 2 * Math.PI + normalizedRotation;
+
+    runSpin(finalRotation, forcedEffect);
+}
+
 // Event listeners
 canvas.addEventListener('click', () => {
     if (effects.length === 0) {
@@ -221,3 +249,21 @@ document.addEventListener('keypress', (e) => {
         spinWheel();
     }
 });
+
+if (cheatBlue) {
+    cheatBlue.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (!isSpinning) {
+            showCheatResult(3);
+        }
+    });
+}
+
+if (cheatRed) {
+    cheatRed.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (!isSpinning) {
+            showCheatResult(4);
+        }
+    });
+}

@@ -78,6 +78,18 @@ h1 {
     z-index: 1;
 }
 
+.title-target {
+    cursor: pointer;
+    display: inline-block;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.title-target:hover {
+    transform: translateY(-2px) scale(1.06);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+}
+
 h2 {
     font-size: clamp(1rem, 2.6vw, 1.5rem);
     font-weight: 500;
