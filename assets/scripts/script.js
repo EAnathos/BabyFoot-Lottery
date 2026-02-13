@@ -33,7 +33,7 @@ const LEGENDARY_WEIGHT = 2;
 const NO_WAYY_WEIGHT = 1;
 
 // Load effects data
-fetch("../data/effects.json", { cache: "no-store" })
+fetch("assets/data/effects.json", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -73,7 +73,7 @@ fetch("../data/effects.json", { cache: "no-store" })
     showLoadError();
   });
 
-fetch("../data/rules.json", { cache: "no-store" })
+fetch("assets/data/rules.json", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
