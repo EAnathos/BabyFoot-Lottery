@@ -14,4 +14,12 @@
 	#wheelCanvas {
 		width: min(70vw, 560px);
 	}
+
+}
+
+@media (max-width: 899px) {
+	.bottom-actions {
+		justify-content: center;
+		gap: 12px;
+	}
 }

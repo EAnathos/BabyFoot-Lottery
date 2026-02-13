@@ -9,7 +9,6 @@ export const dom = {
   wheelHint: document.querySelector(".wheel-hint"),
   cheatBlue: document.getElementById("cheatBlue"),
   cheatRed: document.getElementById("cheatRed"),
-  fullscreenToggle: document.getElementById("fullscreenToggle"),
   rulesToggle: document.getElementById("rulesToggle"),
   rulesModal: document.getElementById("rulesModal"),
   rulesList: document.getElementById("rulesList"),

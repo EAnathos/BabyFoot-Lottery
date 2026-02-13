@@ -1,34 +1,6 @@
 import { dom } from "./dom.js";
 import { renderProbabilities } from "./probabilities.js";
 
-export function setupFullscreenToggle() {
-  if (!dom.fullscreenToggle) {
-    return;
-  }
-
-  const updateFullscreenToggle = () => {
-    const isFullscreen = Boolean(document.fullscreenElement);
-    dom.fullscreenToggle.textContent = isFullscreen
-      ? "Quitter le plein ecran"
-      : "Plein ecran";
-    dom.fullscreenToggle.setAttribute(
-      "aria-pressed",
-      isFullscreen ? "true" : "false",
-    );
-  };
-
-  dom.fullscreenToggle.addEventListener("click", async () => {
-    if (document.fullscreenElement) {
-      await document.exitFullscreen();
-    } else if (document.documentElement.requestFullscreen) {
-      await document.documentElement.requestFullscreen();
-    }
-  });
-
-  document.addEventListener("fullscreenchange", updateFullscreenToggle);
-  updateFullscreenToggle();
-}
-
 export function setupRulesModal() {
   if (!dom.rulesToggle || !dom.rulesModal) {
     return;

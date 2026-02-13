@@ -1,28 +1,22 @@
 # BabyFoot Lottery
 
-🎯 **BabyFoot Lottery** - Une roue de loterie pour pimenter vos matchs de babyfoot.
+**BabyFoot Lottery** - Une roue de loterie pour pimenter vos matchs de babyfoot.
 
 ## Pourquoi ce projet ?
 
-BabyFoot Lottery est une application web statique qui affiche une roue d'effets. On clique, la roue tourne, et l'effet tiré s'applique a la table. Tout est simple a heberger et a personnaliser.
+BabyFoot Lottery est une application web statique qui affiche une roue d'effets. On clique, la roue tourne, et l'effet tiré s'applique a la table. Tout est simple à heberger et à personnaliser.
 
 ## Fonctionnalites
 
 - 🎡 Roue interactive en Canvas avec animation fluide
 - 🎯 Effets pondérés (plus la valeur est basse, plus c'est rare)
-- ✨ Badges Rare / Legendaire selon la ponderation
+- ✨ Badges de rareté selon la ponderation
 - ⚡ Affichage de duree en nombre de buts pour chaque effet
 - 📱 Interface responsive et utilisable sur mobile
 - 🧩 Configuration facile via JSON
 - 📦 PWA avec cache offline via service worker
 
 ## Demarrage rapide
-
-### Option 1 : ouverture directe
-
-Vous pouvez ouvrir [index.html](index.html) directement dans le navigateur. Certaines fonctions (comme le chargement JSON) peuvent toutefois necessiter un serveur local selon le navigateur.
-
-### Option 2 : serveur local (recommande)
 
 ```bash
 # Python
@@ -81,7 +75,7 @@ Rareté :
 
 - [index.html](index.html) : page principale
 - [assets/css/styles.css](assets/css/styles.css) : styles et animations
-- [assets/scripts/script.js](assets/scripts/script.js) : logique de la roue et animations
+- [assets/scripts/app.js](assets/scripts/script.js) : logique de la roue et animations
 - [assets/data/effects.json](assets/data/effects.json) : liste et ponderation des effets
 - [assets/data/rules.json](assets/data/rules.json) : regles additionnelles
 - [service-worker.js](service-worker.js) : cache offline
@@ -98,7 +92,7 @@ graph TD
   E --> F[css/]
   F --> G[styles.css]
   E --> H[scripts/]
-  H --> I[script.js]
+  H --> I[app.js]
   E --> J[data/]
   J --> K[effects.json]
   J --> L[rules.json]

@@ -12,11 +12,6 @@
 <body>
     <div class="container">
         <h1><span class="title-target" id="cheatBlue" aria-label="Penalty bleu">🎯</span> BabyFoot Lottery <span class="title-target" id="cheatRed" aria-label="Penalty rouge">🎯</span></h1>
-
-        <div class="top-actions">
-            <button class="fullscreen-toggle" id="fullscreenToggle" type="button" aria-pressed="false">Plein ecran</button>
-            <button class="rules-toggle" id="rulesToggle" type="button" aria-expanded="false" aria-controls="rulesModal">Règles ?</button>
-        </div>
         
         <div class="wheel-container">
             <canvas id="wheelCanvas" width="500" height="500"></canvas>
@@ -30,7 +25,7 @@
             <div class="result-content">
                 <h3 id="effectName"></h3>
                 <div class="result-meta">
-                    <span id="rarityBadge" class="rare-badge is-hidden">Rare *</span>
+                    <span id="rarityBadge" class="rare-badge is-hidden">Rare</span>
                 </div>
                 <p id="effectDescription"></p>
                 <div class="bonus-status" id="bonusStatus"></div>
@@ -47,10 +42,6 @@
                     <li>Chargement...</li>
                 </ul>
             </div>
-        </div>
-
-        <div class="bottom-actions">
-            <button class="probabilities-toggle" id="probabilitiesToggle" type="button" aria-expanded="false" aria-controls="probabilitiesModal">Probabilites ?</button>
         </div>
 
         <div class="rules-modal is-hidden" id="probabilitiesModal" role="dialog" aria-modal="true" aria-labelledby="probabilitiesTitle">
@@ -75,6 +66,11 @@
                     <li>Chargement...</li>
                 </ul>
             </div>
+        </div>
+
+        <div class="bottom-actions" aria-label="Navigation">
+            <button class="rules-toggle" id="rulesToggle" type="button" aria-expanded="false" aria-controls="rulesModal">Règles</button>
+            <button class="probabilities-toggle" id="probabilitiesToggle" type="button" aria-expanded="false" aria-controls="probabilitiesModal">Probabilites</button>
         </div>
     </div>
     

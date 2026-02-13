@@ -49,8 +49,8 @@ export function drawWheel(rotation = 0) {
     ctx.closePath();
     ctx.fillStyle = effect.color;
     ctx.fill();
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.65)";
-    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = "rgba(120, 80, 40, 0.6)";
+    ctx.lineWidth = 1;
     ctx.stroke();
 
     // Draw text
@@ -69,13 +69,31 @@ export function drawWheel(rotation = 0) {
     cumulativeAngle += segmentAngle;
   });
 
+  // Draw outer ring
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, state.wheelRadius, 0, 2 * Math.PI);
+  ctx.strokeStyle = "rgba(185, 136, 74, 0.95)";
+  ctx.lineWidth = Math.max(3, Math.floor(state.wheelRadius * 0.025));
+  ctx.stroke();
+
   // Draw center circle
   ctx.beginPath();
   ctx.arc(centerX, centerY, state.centerCircleRadius, 0, 2 * Math.PI);
-  ctx.fillStyle = "white";
+  const hubGradient = ctx.createRadialGradient(
+    centerX,
+    centerY,
+    state.centerCircleRadius * 0.1,
+    centerX,
+    centerY,
+    state.centerCircleRadius,
+  );
+  hubGradient.addColorStop(0, "#f4a82a");
+  hubGradient.addColorStop(0.55, "#b9884a");
+  hubGradient.addColorStop(1, "#3b2a1b");
+  ctx.fillStyle = hubGradient;
   ctx.fill();
-  ctx.strokeStyle = "#333";
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = "rgba(185, 136, 74, 0.9)";
+  ctx.lineWidth = Math.max(2, Math.floor(state.centerCircleRadius * 0.22));
   ctx.stroke();
 }
 

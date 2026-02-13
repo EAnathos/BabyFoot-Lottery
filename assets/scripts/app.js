@@ -1,7 +1,6 @@
 import { dom, ctx } from "./dom.js";
 import { attachGlobalListeners } from "./listeners.js";
 import {
-  setupFullscreenToggle,
   setupRulesModal,
   setupProbabilitiesModal,
 } from "./modals.js";
@@ -12,7 +11,6 @@ function init() {
     return;
   }
   attachGlobalListeners();
-  setupFullscreenToggle();
   setupRulesModal();
   setupProbabilitiesModal();
   loadEffects();
