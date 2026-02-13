@@ -69,9 +69,10 @@ body::before {
 	pointer-events: none;
 }
 
+
 h1 {
 	font-family: 'Bebas Neue', 'Impact', sans-serif;
-	font-size: clamp(2rem, 9vw, 3.8rem);
+	font-size: clamp(1.35rem, 7.5vw, 3.3rem);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	margin-bottom: 6px;

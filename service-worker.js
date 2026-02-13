@@ -1,12 +1,13 @@
-const CACHE_NAME = 'babygoon-v1';
+const CACHE_NAME = 'babyfoot-lottery-v2';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css',
-  './script.js',
-  './effects.json',
-  './manifest.webmanifest',
-  './icons/icon.svg'
+  './assets/css/styles.css',
+  './assets/scripts/script.js',
+  './assets/data/effects.json',
+  './assets/data/rules.json',
+  './assets/manifest.webmanifest',
+  './assets/icons/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {

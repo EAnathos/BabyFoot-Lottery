@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BabyGoon - Babyfoot Lottery Wheel</title>
+    <title>BabyFoot Lottery - Babyfoot Lottery Wheel</title>
     <meta name="theme-color" content="#0f101a">
-    <link rel="manifest" href="manifest.webmanifest">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="assets/manifest.webmanifest">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     <div class="container">
-        <h1><span class="title-target" id="cheatBlue" aria-label="Penalty bleu">🎯</span> BabyGoon <span class="title-target" id="cheatRed" aria-label="Penalty rouge">🎯</span></h1>
+        <h1><span class="title-target" id="cheatBlue" aria-label="Penalty bleu">🎯</span> BabyFoot Lottery <span class="title-target" id="cheatRed" aria-label="Penalty rouge">🎯</span></h1>
 
         <div class="top-actions">
-            <button class="fullscreen-toggle" id="fullscreenToggle" type="button" aria-pressed="false">Enter fullscreen</button>
+            <button class="fullscreen-toggle" id="fullscreenToggle" type="button" aria-pressed="false">Plein ecran</button>
             <button class="rules-toggle" id="rulesToggle" type="button" aria-expanded="false" aria-controls="rulesModal">Règles ?</button>
         </div>
         
@@ -41,15 +41,13 @@
             <div class="rules-panel">
                 <button class="rules-close" type="button" aria-label="Fermer" data-rules-close>✕</button>
                 <h3 id="rulesTitle">Règles supplémentaires</h3>
-                <ul>
-                    <li>10 - 0 : Sous le baby</li>
-                    <li>Balle attrapée en l'air : 1 points</li>
-                    <li>Une gamelle ne fait pas changer l'effet de la roue</li>
+                <ul id="rulesList">
+                    <li>Chargement...</li>
                 </ul>
             </div>
         </div>
     </div>
     
-    <script src="script.js"></script>
+    <script src="assets/scripts/script.js"></script>
 </body>
 </html>

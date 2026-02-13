@@ -20,6 +20,7 @@ const cheatRed = document.getElementById("cheatRed");
 const fullscreenToggle = document.getElementById("fullscreenToggle");
 const rulesToggle = document.getElementById("rulesToggle");
 const rulesModal = document.getElementById("rulesModal");
+const rulesList = document.getElementById("rulesList");
 
 // Configuration constants
 const MIN_SPIN_DURATION = 2000;
@@ -29,9 +30,10 @@ const ROTATION_VARIANCE = 5;
 const DEFAULT_WEIGHT = 10;
 const RARE_WEIGHT = 5;
 const LEGENDARY_WEIGHT = 2;
+const NO_WAYY_WEIGHT = 1;
 
 // Load effects data
-fetch("effects.json", { cache: "no-store" })
+fetch("../data/effects.json", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -42,14 +44,17 @@ fetch("effects.json", { cache: "no-store" })
     if (!Array.isArray(data.effects) || data.effects.length === 0) {
       throw new Error("Invalid effects.json format");
     }
-    effects = data.effects.map((effect) => {
+    const randomizedEffects = shuffleEffects(data.effects);
+    effects = randomizedEffects.map((effect) => {
       const baseWeight =
         typeof effect.weight === "number" ? effect.weight : DEFAULT_WEIGHT;
       const weight = Math.max(0, baseWeight);
+      const isNoWayy = weight === NO_WAYY_WEIGHT;
+      const isLegendary = weight == LEGENDARY_WEIGHT;
       const isRare = weight <= RARE_WEIGHT && weight > LEGENDARY_WEIGHT;
-      const isLegendary = weight <= LEGENDARY_WEIGHT;
       return {
         ...effect,
+        isNoWayy,
         isRare,
         isLegendary,
         weight,
@@ -68,6 +73,36 @@ fetch("effects.json", { cache: "no-store" })
     showLoadError();
   });
 
+fetch("../data/rules.json", { cache: "no-store" })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    if (!Array.isArray(data.rules)) {
+      throw new Error("Invalid rules.json format");
+    }
+    renderRules(data.rules);
+  })
+  .catch((error) => {
+    console.error("Error loading rules:", error);
+    showRulesLoadError();
+  });
+
+function shuffleEffects(effectList) {
+  const shuffled = [...effectList];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [
+      shuffled[swapIndex],
+      shuffled[index],
+    ];
+  }
+  return shuffled;
+}
+
 function showLoadError() {
   effectName.textContent = "Chargement impossible";
   effectDescription.textContent =
@@ -76,6 +111,28 @@ function showLoadError() {
   bonusStatus.classList.remove("active");
   resultDisplay.style.background = "rgba(17, 16, 26, 0.9)";
   resultDisplay.classList.remove("hidden");
+}
+
+function renderRules(rules) {
+  if (!rulesList) {
+    return;
+  }
+  rulesList.innerHTML = "";
+  rules.forEach((rule) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = String(rule);
+    rulesList.appendChild(listItem);
+  });
+}
+
+function showRulesLoadError() {
+  if (!rulesList) {
+    return;
+  }
+  rulesList.innerHTML = "";
+  const listItem = document.createElement("li");
+  listItem.textContent = "Impossible de charger rules.json.";
+  rulesList.appendChild(listItem);
 }
 
 function resizeCanvas() {
@@ -263,15 +320,18 @@ function showResult(effect) {
   }
 
   if (rarityBadge) {
-    if (effect.isRare) {
-      rarityBadge.textContent = "Rare *";
+    if (effect.isNoWayy) {
+        rarityBadge.textContent = "No Wayyy *";
       rarityBadge.classList.remove("is-hidden");
     } else if (effect.isLegendary) {
-      rarityBadge.textContent = "Legendaire *";
+        rarityBadge.textContent = "Légendaire *";
+      rarityBadge.classList.remove("is-hidden");
+    } else if (effect.isRare) {
+      rarityBadge.textContent = "Rare *";
       rarityBadge.classList.remove("is-hidden");
     } else {
-      rarityBadge.textContent = "";
-      rarityBadge.classList.add("is-hidden");
+      rarityBadge.textContent = "Commun";
+      rarityBadge.classList.remove("is-hidden");
     }
   }
 
@@ -361,8 +421,8 @@ function updateFullscreenToggle() {
   }
   const isFullscreen = Boolean(document.fullscreenElement);
   fullscreenToggle.textContent = isFullscreen
-    ? "Exit fullscreen"
-    : "Enter fullscreen";
+    ? "Quitter le plein ecran"
+    : "Plein ecran";
   fullscreenToggle.setAttribute(
     "aria-pressed",
     isFullscreen ? "true" : "false",

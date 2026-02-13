@@ -1,119 +1,133 @@
-# BabyGoon
+# BabyFoot Lottery
 
-🎯 **BabyGoon** - A fun lottery spinning wheel for babyfoot (table football) games!
+🎯 **BabyFoot Lottery** - Une roue de loterie pour pimenter vos matchs de babyfoot.
 
-## Overview
+## Pourquoi ce projet ?
 
-BabyGoon is a static web application that adds excitement to your babyfoot games with a colorful spinning wheel. Spin the wheel to randomly select fun effects and rule modifications for your game!
+BabyFoot Lottery est une application web statique qui affiche une roue d'effets. On clique, la roue tourne, et l'effet tiré s'applique a la table. Tout est simple a heberger et a personnaliser.
 
-## Features
+## Fonctionnalites
 
-- 🎡 Interactive spinning wheel with smooth animations
-- 🎯 **Goal-based bonus system** - spin unlocks after scoring goals
-- 📊 Track goals scored with +/- buttons
-- 🎨 8 colorful game effects with unique descriptions
-- ⚡ Bonuses that stay active for a specific number of goals
-- 📱 Responsive design that works on all devices
-- 🎯 Easy-to-customize effects via JSON configuration
+- 🎡 Roue interactive en Canvas avec animation fluide
+- 🎯 Effets pondérés (plus la valeur est basse, plus c'est rare)
+- ✨ Badges Rare / Legendaire selon la ponderation
+- ⚡ Affichage de duree en nombre de buts pour chaque effet
+- 📱 Interface responsive et utilisable sur mobile
+- 🧩 Configuration facile via JSON
+- 📦 PWA avec cache offline via service worker
 
-## Getting Started
+## Demarrage rapide
 
-### How to Play
+### Option 1 : ouverture directe
 
-1. Open `index.html` in any modern web browser
-2. **Track Goals**: Use the +/- buttons to track goals scored during your babyfoot game
-3. **Wait for Spin**: You need to score 3 goals before you can spin the wheel (configurable in effects.json)
-4. **Spin the Wheel**: Once you've scored enough goals, click "SPIN THE WHEEL!"
-5. **Active Bonus**: The selected effect stays active for a specific number of goals (shown as "⚡ Active for X more goals!")
-6. **Continue Playing**: Keep scoring goals and the bonus will automatically expire after the required goals are reached
+Vous pouvez ouvrir [index.html](index.html) directement dans le navigateur. Certaines fonctions (comme le chargement JSON) peuvent toutefois necessiter un serveur local selon le navigateur.
 
-### Simple Usage
-
-1. Open `index.html` in any modern web browser
-2. Click the "SPIN THE WHEEL!" button
-3. Watch the wheel spin and see which effect you get!
-
-### Running with a Local Server
-
-For the best experience (especially if modifying effects.json):
+### Option 2 : serveur local (recommande)
 
 ```bash
-# Using Python 3
-python3 -m http.server 8000
+# Python
+python -m http.server 8000
 
-# Using Node.js
+# Node.js
 npx http-server -p 8000
-
-# Then open http://localhost:8000 in your browser
 ```
 
-## How It Works
+Ouvrez ensuite `http://localhost:8000`.
 
-### Goal-Based System
+## Utilisation
 
-Unlike traditional time-based bonuses, BabyGoon uses a **goal-based system** that integrates seamlessly with your real babyfoot game:
+- Cliquez sur la roue pour la faire tourner.
+- Appuyez sur `Entree` pour lancer un spin.
+- Le resultat affiche le nom de l'effet, sa description et sa duree (en nombre de buts).
 
-1. **Goal Tracking**: Use the +/- buttons to increment/decrement the goal counter as you play
-2. **Spin Requirements**: You must score a certain number of goals (default: 3) before you can spin the wheel
-3. **Active Bonuses**: Once you spin and get an effect, it stays active for a specific number of goals (1-3 depending on the effect)
-4. **Automatic Expiration**: The bonus automatically disappears once the required goals have been scored
-5. **Cycle Repeats**: After spinning, the goal counter resets to 0 and you start accumulating goals again
+## Configuration des effets
 
-## Game Effects
+Tout se passe dans [assets/data/effects.json](assets/data/effects.json).
 
-The wheel includes 8 exciting effects:
-
-1. **Goal Celebration** - Disco lights flash across the table!
-2. **Slow Motion** - Everything moves in slow motion for 30 seconds
-3. **Lightning Round** - Next goal counts double!
-4. **Swap Teams** - Players switch sides!
-5. **Golden Ball** - Next point is worth 2 points!
-6. **Freeze Frame** - Defenders can't move for 10 seconds!
-7. **Power Shot** - Attackers get extra power!
-8. **Penalty Shot** - One player gets a free shot!
-
-## Customization
-
-Edit `effects.json` to customize the game behavior:
+Exemple :
 
 ```json
 {
-  "goalsToSpin": 3,
   "effects": [
     {
-      "id": 1,
-      "name": "Your Effect",
-      "description": "Description of your effect",
+      "id": 17,
+      "name": "Votre effet",
+      "description": "Description de l'effet",
       "color": "#FF5733",
-      "duration": 4000,
-      "goalsRequired": 2
+      "goalsRequired": 1,
+      "weight": 10
     }
   ]
 }
 ```
 
-### Configuration Options:
-- `goalsToSpin`: Number of goals required before players can spin the wheel (default: 3)
-- `name`: The effect name displayed on the wheel
-- `description`: What happens when this effect is selected
-- `color`: Hex color code for the wheel segment
-- `duration`: Display duration in milliseconds (used for flash animation)
-- `goalsRequired`: Number of goals the bonus stays active for (1-3 recommended)
+Champs disponibles :
 
-## Technologies Used
+- `id` : identifiant unique (nombre)
+- `name` : nom affiche dans la roue
+- `description` : ce que l'effet implique
+- `color` : couleur de segment (hex)
+- `goalsRequired` : nombre de buts pendant lequel l'effet reste actif
+- `weight` : probabilite (plus petit = plus rare)
 
-- Pure HTML5 Canvas for wheel rendering
-- Vanilla JavaScript (no frameworks required)
-- CSS3 animations and gradients
-- JSON for configuration
+Rareté :
 
-## Browser Support
+- `weight` == 1 : No Wayyy
+- `weight` == 2 : Légendaire
+- `weight` <= 5 : Rare
+- `weight` > 5 : Commun
 
-Works on all modern browsers that support:
-- HTML5 Canvas
-- ES6 JavaScript
-- CSS3 animations
+## Structure du projet
 
----
+- [index.html](index.html) : page principale
+- [assets/css/styles.css](assets/css/styles.css) : styles et animations
+- [assets/scripts/script.js](assets/scripts/script.js) : logique de la roue et animations
+- [assets/data/effects.json](assets/data/effects.json) : liste et ponderation des effets
+- [assets/data/rules.json](assets/data/rules.json) : regles additionnelles
+- [service-worker.js](service-worker.js) : cache offline
+- [assets/manifest.webmanifest](assets/manifest.webmanifest) : metadonnees PWA
 
-Have fun and may the odds be ever in your favor! 🎲
+Architecture :
+
+```mermaid
+graph TD
+  A[BabyFoot Lottery] --> B[index.html]
+  A --> C[README.md]
+  A --> D[service-worker.js]
+  A --> E[assets/]
+  E --> F[css/]
+  F --> G[styles.css]
+  E --> H[scripts/]
+  H --> I[script.js]
+  E --> J[data/]
+  J --> K[effects.json]
+  J --> L[rules.json]
+  E --> M[icons/]
+  M --> N[icon.svg]
+  E --> O[manifest.webmanifest]
+```
+
+## Contribuer
+
+Toute aide est bienvenue ! Voici un flux simple :
+
+1. Forkez le repo.
+2. Creez une branche (`git checkout -b feature/ma-modif`).
+3. Faites vos changements.
+4. Testez en local.
+5. Ouvrez une Pull Request.
+
+Idees de contribution :
+
+- Ajouter de nouveaux effets
+- Ameliorer les animations
+- Proposer des regles additionnelles
+- Ameliorer l'accessibilite
+- Ajouter des tests simples ou du linting
+
+## Support
+
+Si vous avez une idee ou un bug, ouvrez une issue :
+https://github.com/EAnathos/BabyFoot-Lottery/issues
+
+Bon match ! 🏆
