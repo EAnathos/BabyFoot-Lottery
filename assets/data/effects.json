@@ -126,7 +126,7 @@
       "description": "La dernière équipe qui a marqué est étourdie, elle ne peut pas jouer pendant 7 secondes !",
       "color": "#E74C3C",
       "goalsRequired": 1,
-      "weight": 5
+      "weight": 500
     },
     {
       "id": 16,
@@ -147,7 +147,7 @@
     {
       "id": 18,
       "name": "Attaque !",
-      "description": "Les buts doivent venir des attaquants uniquement.",
+      "description": "Le prochain but doit venir des attaquants uniquement.",
       "color": "#3498DB",
       "goalsRequired": 1,
       "weight": 5
@@ -187,7 +187,7 @@
     {
       "id": 23,
       "name": "No Spin",
-      "description": "Interdiction de faire tourner la barre sur elle-meme.",
+      "description": "Interdiction de faire une roulette !",
       "color": "#34495E",
       "goalsRequired": 1,
       "weight": 5

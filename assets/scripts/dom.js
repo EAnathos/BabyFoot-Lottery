@@ -4,6 +4,7 @@ export const dom = {
   effectName: document.getElementById("effectName"),
   effectDescription: document.getElementById("effectDescription"),
   bonusStatus: document.getElementById("bonusStatus"),
+  stunCountdownButton: document.getElementById("stunCountdownButton"),
   rarityBadge: document.getElementById("rarityBadge"),
   wheelHint: document.querySelector(".wheel-hint"),
   cheatBlue: document.getElementById("cheatBlue"),

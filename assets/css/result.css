@@ -55,10 +55,63 @@
 	background: rgba(255, 255, 255, 0.08);
 	font-weight: 600;
 	letter-spacing: 0.04em;
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
 }
 
 .bonus-status.active {
 	background: linear-gradient(120deg, rgba(85, 231, 179, 0.35), rgba(255, 255, 255, 0.08));
+}
+
+.bonus-status.hidden {
+	display: none;
+}
+
+.bonus-status.stun-timer::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(120deg, rgba(85, 231, 179, 0.45), rgba(255, 255, 255, 0.12));
+	transform-origin: left;
+	transform: scaleX(var(--stun-progress, 1));
+	transition: transform 0.95s linear;
+	z-index: 0;
+}
+
+.stun-button {
+	margin-top: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.22);
+	background: rgba(255, 255, 255, 0.08);
+	color: var(--ink);
+	padding: 8px 16px;
+	border-radius: 999px;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.stun-button:hover {
+	transform: translateY(-1px);
+	background: rgba(255, 255, 255, 0.18);
+	box-shadow: var(--shadow-soft);
+}
+
+.stun-button:focus-visible {
+	outline: 2px solid rgba(244, 168, 42, 0.75);
+	outline-offset: 2px;
+}
+
+.stun-button:disabled {
+	opacity: 0.7;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: none;
+}
+
+.stun-button.hidden {
+	display: none;
 }
 
 .effect-flash {
