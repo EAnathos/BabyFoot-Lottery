@@ -1,28 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BabyFoot Lottery">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0f101a" />
-      <stop offset="1" stop-color="#2b0f2b" />
-    </linearGradient>
-    <radialGradient id="glow" cx="0.35" cy="0.2" r="0.8">
-      <stop offset="0" stop-color="#f3a712" stop-opacity="0.9" />
-      <stop offset="1" stop-color="#f3a712" stop-opacity="0" />
-    </radialGradient>
-  </defs>
-  <rect width="512" height="512" rx="96" fill="url(#bg)" />
-  <rect width="512" height="512" rx="96" fill="url(#glow)" />
-  <g transform="translate(256 256)">
-    <circle r="172" fill="#fdfaf4" stroke="#ffffff" stroke-width="20" />
-    <circle r="36" fill="#f3a712" />
-    <g fill="#1b1207" opacity="0.8">
-      <path d="M0 -172 L16 -102 L0 -86 L-16 -102 Z" />
-      <path d="M148 -86 L92 -64 L86 -86 L102 -148 Z" />
-      <path d="M172 0 L102 16 L86 0 L102 -16 Z" />
-      <path d="M148 86 L102 148 L86 86 L92 64 Z" />
-      <path d="M0 172 L-16 102 L0 86 L16 102 Z" />
-      <path d="M-148 86 L-92 64 L-86 86 L-102 148 Z" />
-      <path d="M-172 0 L-102 -16 L-86 0 L-102 16 Z" />
-      <path d="M-148 -86 L-102 -148 L-86 -86 L-92 -64 Z" />
-    </g>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="BabyFoot lottery logo">
+	<rect x="24" y="24" width="464" height="464" rx="32" fill="#0e5a3a"/>
+	<rect x="24" y="24" width="464" height="464" rx="32" fill="none" stroke="#0a3f29" stroke-width="8"/>
+
+	<g stroke="#ffffff66" stroke-width="6" stroke-linecap="round">
+		<line x1="56" y1="64" x2="456" y2="64"/>
+		<line x1="56" y1="120" x2="456" y2="120"/>
+		<line x1="56" y1="176" x2="456" y2="176"/>
+		<line x1="56" y1="232" x2="456" y2="232"/>
+		<line x1="56" y1="288" x2="456" y2="288"/>
+		<line x1="56" y1="344" x2="456" y2="344"/>
+		<line x1="56" y1="400" x2="456" y2="400"/>
+		<line x1="56" y1="456" x2="456" y2="456"/>
+	</g>
+
+	<g fill="#e53935">
+		<circle cx="256" cy="64" r="18"/>
+		<circle cx="192" cy="120" r="18"/>
+		<circle cx="320" cy="120" r="18"/>
+		<circle cx="112" cy="232" r="18"/>
+		<circle cx="192" cy="232" r="18"/>
+		<circle cx="256" cy="232" r="18"/>
+		<circle cx="320" cy="232" r="18"/>
+		<circle cx="400" cy="232" r="18"/>
+		<circle cx="160" cy="344" r="18"/>
+		<circle cx="256" cy="344" r="18"/>
+		<circle cx="352" cy="344" r="18"/>
+	</g>
+
+	<g fill="#1e88e5">
+		<circle cx="160" cy="176" r="18"/>
+		<circle cx="256" cy="176" r="18"/>
+		<circle cx="352" cy="176" r="18"/>
+		<circle cx="112" cy="288" r="18"/>
+		<circle cx="192" cy="288" r="18"/>
+		<circle cx="256" cy="288" r="18"/>
+		<circle cx="320" cy="288" r="18"/>
+		<circle cx="400" cy="288" r="18"/>
+		<circle cx="192" cy="400" r="18"/>
+		<circle cx="320" cy="400" r="18"/>
+		<circle cx="256" cy="456" r="18"/>
+	</g>
 </svg>
