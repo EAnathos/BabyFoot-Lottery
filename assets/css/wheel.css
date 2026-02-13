@@ -6,19 +6,19 @@
 	margin: 12px auto 18px;
 	padding: 8px;
 	border-radius: 999px;
+	border: none;
 	background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 62%);
 	z-index: 1;
+	-webkit-tap-highlight-color: transparent;
 }
 
 #wheelCanvas {
 	width: min(82vw, 520px);
-	height: auto;
-	border-radius: 80%;
+	border-radius: 100%;
 	background:
 		radial-gradient(circle at 28% 22%, rgba(244, 168, 42, 0.24), transparent 55%),
 		radial-gradient(circle at 75% 78%, rgba(85, 231, 179, 0.12), transparent 60%),
 		linear-gradient(155deg, #0b0d15, #2a171f 55%, #1b1118);
-	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
 	border: 2px solid #b9884a;
 	cursor: pointer;
 	transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -35,16 +35,12 @@
 	right: -18px;
 	transform: translateY(-50%);
 	font-size: clamp(2rem, 7vw, 3rem);
-	color: var(--accent);
-	text-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
 	z-index: 2;
 }
 
 .wheel-hint {
-	margin-top: 6px;
-	font-size: clamp(0.95rem, 3.6vw, 1.1rem);
+	margin-top: 5px;
 	color: var(--ink-muted);
-	letter-spacing: 0.02em;
 	position: relative;
 	z-index: 1;
 	transition: opacity 0.3s ease, transform 0.3s ease;
@@ -52,6 +48,5 @@
 
 .wheel-hint.hidden {
 	opacity: 0;
-	transform: translateY(8px);
 	pointer-events: none;
 }

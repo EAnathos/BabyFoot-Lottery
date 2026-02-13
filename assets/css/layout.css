@@ -47,3 +47,11 @@ h1 {
 .probabilities-toggle:hover {
 	transform: translateY(-2px);
 }
+
+.section-separator {
+	border: 0;
+	height: 1px;
+	margin: 16px auto 12px;
+	width: min(520px, 90%);
+	background: linear-gradient(90deg, transparent, rgba(244, 168, 42, 0.45), transparent);
+}

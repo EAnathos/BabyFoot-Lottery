@@ -5,23 +5,14 @@
 	align-items: center;
 	justify-content: center;
 	transition: opacity 0.2s ease;
-	z-index: 2;
+	z-index: 3;
 }
 
 .rules-modal.is-hidden {
 	opacity: 0;
 	pointer-events: none;
 }
-.rules-backdrop {
-	position: absolute;
-	inset: 0;
-	background: rgba(8, 8, 12, 0.6);
-	backdrop-filter: blur(2px);
-}
 
-#probabilitiesModal .rules-backdrop {
-	backdrop-filter: none;
-}
 .rules-panel {
 	position: relative;
 	width: min(520px, 92vw);
@@ -33,39 +24,12 @@
 	text-align: left;
 	max-height: min(80vh, 620px);
 	overflow-y: auto;
-	z-index: 2;
 	scrollbar-color: rgba(244, 168, 42, 0.65) rgba(255, 255, 255, 0.14);
 	scrollbar-width: thin;
 }
 
-.rules-panel::-webkit-scrollbar {
-	width: 10px;
-}
-
-.rules-panel::-webkit-scrollbar-track {
-	background: rgba(255, 255, 255, 0.08);
-	border-radius: 999px;
-}
-
-.rules-panel::-webkit-scrollbar-thumb {
-	background: linear-gradient(180deg, rgba(244, 168, 42, 0.9), rgba(85, 231, 179, 0.75));
-	border-radius: 999px;
-	border: 2px solid rgba(18, 16, 26, 0.9);
-}
-
-.rules-panel::-webkit-scrollbar-thumb:hover {
-	background: linear-gradient(180deg, rgba(244, 168, 42, 1), rgba(85, 231, 179, 0.95));
-}
-
-.rules-panel::-webkit-scrollbar-button {
-	width: 0;
-	height: 0;
-	display: none;
-}
-
 .rules-panel h3 {
 	font-family: 'Bebas Neue', 'Impact', sans-serif;
-	font-size: clamp(1.3rem, 5vw, 1.7rem);
 	letter-spacing: 0.05em;
 	margin-bottom: 10px;
 }
@@ -77,10 +41,6 @@
 	font-size: clamp(0.95rem, 3.5vw, 1.1rem);
 	line-height: 1.5;
 	padding-bottom: 6px;
-}
-
-.rules-panel li + li {
-	margin-top: 8px;
 }
 
 .rules-close {
