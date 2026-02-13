@@ -18,7 +18,7 @@
     },
     {
       "id": 2,
-      "name": "Haut les pieds",
+      "name": "Hold Up !",
       "description": "Les centraux doivent lever les pieds vers le ciel !",
       "color": "#5DADE2",
       "goalsRequired": 1,
@@ -74,7 +74,7 @@
     },
     {
       "id": 9,
-      "name": "Défenseur ou attaquant ?",
+      "name": "Golden Defense",
       "description": "Le prochain but de la défense comptera double !",
       "color": "#2C3E50",
       "goalsRequired": 1,
@@ -82,7 +82,7 @@
     },
     {
       "id": 10,
-      "name": "Goal ou attaquant ?",
+      "name": "Golden Goal",
       "description": "Le prochain but du goal comptera double !",
       "color": "#1ABC9C",
       "goalsRequired": 1,
@@ -114,9 +114,25 @@
     },
     {
       "id": 14,
-      "name": "Brézilienne !",
-      "description": "Tu peux mettre un coup dans l'épaule de l'adversaire en face de toi !",
+      "name": "Brézilienne",
+      "description": "Si tu marques, tu peux mettre un coup dans l'épaule de l'adversaire en face de toi !",
       "color": "#C0392B",
+      "goalsRequired": 1,
+      "weight": 2
+    },
+    {
+      "id": 15,
+      "name": "Stun",
+      "description": "La dernière équipe qui a marqué est étourdie, elle ne peut pas jouer pendant 7 secondes !",
+      "color": "#E74C3C",
+      "goalsRequired": 1,
+      "weight": 5
+    },
+    {
+      "id": 16,
+      "name": "Justice !",
+      "description": "Le dernier point est annulé !",
+      "color": "#E74C3C",
       "goalsRequired": 1,
       "weight": 2
     }
