@@ -1,0 +1,54 @@
+.wheel-container {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 12px auto 18px;
+	padding: 8px;
+	border-radius: 999px;
+	background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 62%);
+	z-index: 1;
+}
+
+#wheelCanvas {
+	width: min(82vw, 520px);
+	height: auto;
+	border-radius: 80%;
+	background: var(--bg-sand);
+	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+	border: 0 solid transparent;
+	cursor: pointer;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wheel-container:hover #wheelCanvas {
+	transform: scale(1.02);
+	box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+.wheel-pointer {
+	position: absolute;
+	top: 50%;
+	right: -18px;
+	transform: translateY(-50%);
+	font-size: clamp(2rem, 7vw, 3rem);
+	color: var(--accent);
+	text-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+	z-index: 2;
+}
+
+.wheel-hint {
+	margin-top: 6px;
+	font-size: clamp(0.95rem, 3.6vw, 1.1rem);
+	color: var(--ink-muted);
+	letter-spacing: 0.02em;
+	position: relative;
+	z-index: 1;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.wheel-hint.hidden {
+	opacity: 0;
+	transform: translateY(8px);
+	pointer-events: none;
+}

@@ -1,0 +1,105 @@
+.container {
+	width: min(960px, 100%);
+	padding: 22px clamp(16px, 5vw, 40px) 28px;
+	background: var(--card);
+	border-radius: 26px;
+	border: 1px solid var(--card-stroke);
+	box-shadow: var(--shadow-strong);
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.container::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(120deg, rgba(244, 168, 42, 0.15), transparent 55%),
+		linear-gradient(320deg, rgba(85, 231, 179, 0.1), transparent 60%);
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+h1 {
+	font-family: 'Bebas Neue', 'Impact', sans-serif;
+	font-size: clamp(1.35rem, 7.5vw, 3.3rem);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	margin-bottom: 6px;
+	position: relative;
+	z-index: 1;
+}
+
+.title-target {
+	cursor: pointer;
+	display: inline-block;
+	transform: translateY(-2px);
+	transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.title-target:hover {
+	transform: translateY(-2px) scale(1.06);
+	filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+}
+
+.top-actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin: 10px 0 8px;
+	position: relative;
+	z-index: 1;
+}
+
+.fullscreen-toggle,
+.rules-toggle,
+.probabilities-toggle {
+	border: 1px solid rgba(255, 255, 255, 0.22);
+	background: rgba(255, 255, 255, 0.08);
+	color: var(--ink);
+	padding: 9px 16px;
+	border-radius: 999px;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.rules-toggle {
+	letter-spacing: 0.02em;
+}
+
+.probabilities-toggle {
+	margin-top: 12px;
+	font-size: 0.8rem;
+	padding: 6px 12px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.bottom-actions {
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 4px;
+	position: relative;
+	z-index: 1;
+}
+
+.fullscreen-toggle:hover,
+.rules-toggle:hover,
+.probabilities-toggle:hover {
+	transform: translateY(-1px);
+	background: rgba(255, 255, 255, 0.18);
+	box-shadow: var(--shadow-soft);
+}
+
+.fullscreen-toggle:focus-visible,
+.rules-toggle:focus-visible,
+.probabilities-toggle:focus-visible {
+	outline: 2px solid rgba(244, 168, 42, 0.75);
+	outline-offset: 2px;
+}

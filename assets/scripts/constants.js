@@ -1,0 +1,8 @@
+export const MIN_SPIN_DURATION = 2000;
+export const SPIN_DURATION_VARIANCE = 2000;
+export const MIN_ROTATIONS = 5;
+export const ROTATION_VARIANCE = 5;
+export const DEFAULT_WEIGHT = 10;
+export const RARE_WEIGHT = 5;
+export const LEGENDARY_WEIGHT = 2;
+export const NO_WAYY_WEIGHT = 1;

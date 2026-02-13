@@ -1,0 +1,17 @@
+@media (min-width: 900px) {
+	body {
+		padding: 32px 24px 48px;
+	}
+
+	.container {
+		padding: 34px 52px 38px;
+	}
+
+	.wheel-container {
+		margin-top: 18px;
+	}
+
+	#wheelCanvas {
+		width: min(70vw, 560px);
+	}
+}

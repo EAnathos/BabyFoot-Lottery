@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+
+:root {
+	color-scheme: only light;
+	--bg-ink: #10121a;
+	--bg-plum: #29161f;
+	--bg-sand: #f7f1e7;
+	--ink: #f7f1e7;
+	--ink-muted: rgba(247, 241, 231, 0.72);
+	--card: rgba(17, 18, 26, 0.86);
+	--card-stroke: rgba(247, 241, 231, 0.12);
+	--accent: #f4a82a;
+	--accent-2: #55e7b3;
+	--shadow-strong: 0 26px 60px rgba(6, 6, 12, 0.5);
+	--shadow-soft: 0 12px 30px rgba(6, 6, 12, 0.35);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'DM Sans', 'Segoe UI', sans-serif;
+	color: var(--ink);
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background:
+		radial-gradient(900px 520px at 15% -10%, rgba(244, 168, 42, 0.35), transparent 60%),
+		radial-gradient(720px 460px at 90% 10%, rgba(85, 231, 179, 0.25), transparent 60%),
+		linear-gradient(140deg, var(--bg-ink), var(--bg-plum));
+	padding: 22px 14px 36px;
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	background:
+		radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.08), transparent 45%),
+		radial-gradient(circle at 85% 0%, rgba(255, 255, 255, 0.06), transparent 50%);
+	opacity: 0.8;
+}
+
+.is-hidden {
+	display: none;
+}
