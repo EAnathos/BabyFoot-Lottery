@@ -14,15 +14,10 @@
 	gap: 10px;
 }
 
-.probabilities-controls label {
-	color: var(--ink-muted);
-}
-
 .probabilities-count {
 	color: var(--ink-muted);
 	font-size: 0.85rem;
 	letter-spacing: 0.05em;
-	text-transform: uppercase;
 }
 
 .probabilities-controls select {
