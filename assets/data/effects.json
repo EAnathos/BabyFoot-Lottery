@@ -126,7 +126,7 @@
       "description": "La dernière équipe qui a marqué est étourdie, elle ne peut pas jouer pendant 7 secondes !",
       "color": "#E74C3C",
       "goalsRequired": 1,
-      "weight": 500
+      "weight": 5
     },
     {
       "id": 16,
