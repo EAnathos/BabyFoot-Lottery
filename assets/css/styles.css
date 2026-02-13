@@ -104,7 +104,8 @@ h1 {
 }
 
 .fullscreen-toggle,
-.rules-toggle {
+.rules-toggle,
+.probabilities-toggle {
 	border: 1px solid rgba(255, 255, 255, 0.22);
 	background: rgba(255, 255, 255, 0.08);
 	color: var(--ink);
@@ -120,15 +121,34 @@ h1 {
 	letter-spacing: 0.02em;
 }
 
+.probabilities-toggle {
+	margin-top: 12px;
+	font-size: 0.8rem;
+	padding: 6px 12px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.bottom-actions {
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 4px;
+	position: relative;
+	z-index: 1;
+}
+
 .fullscreen-toggle:hover,
-.rules-toggle:hover {
+.rules-toggle:hover,
+.probabilities-toggle:hover {
 	transform: translateY(-1px);
 	background: rgba(255, 255, 255, 0.18);
 	box-shadow: var(--shadow-soft);
 }
 
 .fullscreen-toggle:focus-visible,
-.rules-toggle:focus-visible {
+.rules-toggle:focus-visible,
+.probabilities-toggle:focus-visible {
 	outline: 2px solid rgba(244, 168, 42, 0.75);
 	outline-offset: 2px;
 }
@@ -301,7 +321,58 @@ h1 {
 	border: 1px solid rgba(255, 255, 255, 0.14);
 	box-shadow: var(--shadow-strong);
 	text-align: left;
+	max-height: min(80vh, 620px);
+	overflow-y: auto;
 	z-index: 1;
+	scrollbar-color: rgba(244, 168, 42, 0.65) rgba(255, 255, 255, 0.08);
+	scrollbar-width: thin;
+}
+
+.rules-panel::before,
+.rules-panel::after {
+	content: '';
+	position: sticky;
+	left: 0;
+	right: 0;
+	height: 26px;
+	pointer-events: none;
+	z-index: 2;
+	display: block;
+}
+
+.rules-panel::before {
+	top: 0;
+	background: linear-gradient(180deg, rgba(18, 16, 26, 0.96), rgba(18, 16, 26, 0));
+}
+
+.rules-panel::after {
+	bottom: 0;
+	background: linear-gradient(0deg, rgba(18, 16, 26, 0.96), rgba(18, 16, 26, 0));
+}
+
+.rules-panel::-webkit-scrollbar {
+	width: 10px;
+}
+
+.rules-panel::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 999px;
+}
+
+.rules-panel::-webkit-scrollbar-thumb {
+	background: linear-gradient(180deg, rgba(244, 168, 42, 0.9), rgba(85, 231, 179, 0.75));
+	border-radius: 999px;
+	border: 2px solid rgba(18, 16, 26, 0.9);
+}
+
+.rules-panel::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(180deg, rgba(244, 168, 42, 1), rgba(85, 231, 179, 0.95));
+}
+
+.rules-panel::-webkit-scrollbar-button {
+	width: 0;
+	height: 0;
+	display: none;
 }
 
 .rules-panel h3 {
@@ -311,12 +382,128 @@ h1 {
 	margin-bottom: 10px;
 }
 
+.probabilities-controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin: 6px 0 12px;
+	font-size: 0.95rem;
+	letter-spacing: 0.02em;
+}
+
+.probabilities-filter {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.probabilities-controls label {
+	color: var(--ink-muted);
+}
+
+.probabilities-count {
+	color: var(--ink-muted);
+	font-size: 0.85rem;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+.probabilities-controls select {
+	appearance: none;
+	background: rgba(255, 255, 255, 0.16);
+	border: 1px solid rgba(255, 255, 255, 0.28);
+	color: var(--ink);
+	padding: 6px 28px 6px 10px;
+	border-radius: 999px;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+		linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+	background-position: calc(100% - 14px) calc(50% - 2px),
+		calc(100% - 9px) calc(50% - 2px);
+	background-size: 5px 5px, 5px 5px;
+	background-repeat: no-repeat;
+}
+
+.probabilities-controls select option {
+	color: var(--ink);
+	background: #11131a;
+}
+
+.probabilities-controls select:focus-visible {
+	outline: 2px solid rgba(244, 168, 42, 0.75);
+	outline-offset: 2px;
+}
+
 .rules-panel ul {
 	list-style: disc;
 	padding-left: 18px;
 	color: var(--ink-muted);
 	font-size: clamp(0.95rem, 3.5vw, 1.1rem);
 	line-height: 1.5;
+	padding-bottom: 6px;
+}
+
+.rules-panel ul.probabilities-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+.probability-item {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 10px 12px;
+	border-radius: 14px;
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.probability-item + .probability-item {
+	margin-top: 10px;
+}
+
+.probability-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 10px;
+}
+
+.probability-meta {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 4px;
+}
+
+.probability-name {
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+
+.probability-badge {
+	padding: 3px 10px;
+	border-radius: 999px;
+	background: rgba(244, 168, 42, 0.18);
+	border: 1px solid rgba(244, 168, 42, 0.5);
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-weight: 700;
+}
+
+.probability-value {
+	font-family: 'Bebas Neue', 'Impact', sans-serif;
+	font-size: 1.1rem;
+	letter-spacing: 0.08em;
+	color: var(--accent);
+}
+
+.probability-description {
+	color: var(--ink-muted);
+	font-size: 0.95rem;
 }
 
 .rules-panel li + li {

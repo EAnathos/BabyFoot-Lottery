@@ -146,7 +146,7 @@
     },
     {
       "id": 18,
-      "name": "Aile Only",
+      "name": "Attaque !",
       "description": "Les buts doivent venir des attaquants uniquement.",
       "color": "#3498DB",
       "goalsRequired": 1,

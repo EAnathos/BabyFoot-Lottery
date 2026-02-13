@@ -46,6 +46,34 @@
                 </ul>
             </div>
         </div>
+
+        <div class="bottom-actions">
+            <button class="probabilities-toggle" id="probabilitiesToggle" type="button" aria-expanded="false" aria-controls="probabilitiesModal">Probabilites ?</button>
+        </div>
+
+        <div class="rules-modal is-hidden" id="probabilitiesModal" role="dialog" aria-modal="true" aria-labelledby="probabilitiesTitle">
+            <div class="rules-backdrop" data-probabilities-close></div>
+            <div class="rules-panel">
+                <button class="rules-close" type="button" aria-label="Fermer" data-probabilities-close>✕</button>
+                <h3 id="probabilitiesTitle">Probabilites des effets</h3>
+                <div class="probabilities-controls">
+                    <div class="probabilities-filter">
+                        <label for="probabilitiesFilter">Filtre rarete</label>
+                        <select id="probabilitiesFilter" aria-label="Filtrer par rarete">
+                            <option value="all">Tous</option>
+                            <option value="common">Commun</option>
+                            <option value="rare">Rare</option>
+                            <option value="legendary">Legendaire</option>
+                            <option value="no-wayy">No Wayyy</option>
+                        </select>
+                    </div>
+                    <span class="probabilities-count" id="probabilitiesCount">0 effets</span>
+                </div>
+                <ul id="probabilitiesList">
+                    <li>Chargement...</li>
+                </ul>
+            </div>
+        </div>
     </div>
     
     <script src="assets/scripts/script.js"></script>
