@@ -1,0 +1,57 @@
+.container {
+	width: min(960px, 100%);
+	border-radius: 26px;
+	box-shadow: var(--shadow-strong);
+	text-align: center;
+	position: relative;
+}
+
+h1 {
+	font-family: 'Bebas Neue', 'Impact', sans-serif;
+	font-size: clamp(1.35rem, 7.5vw, 3.3rem);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	margin-bottom: 6px;
+	position: relative;
+	z-index: 1;
+}
+
+.title-target {
+	cursor: pointer;
+	display: inline-block;
+	transform: translateY(-2px);
+	transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.title-target:hover {
+	transform: translateY(-2px) scale(1.06);
+	filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+}
+
+.rules-toggle,
+.probabilities-toggle {
+	border: 0;
+	background: transparent;
+	color: var(--ink);
+	font-weight: 600;
+	text-decoration: underline;
+	text-decoration-color: rgba(244, 168, 42, 0.65);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 6px;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+	padding: 6px 12px;
+}
+
+.rules-toggle:hover,
+.probabilities-toggle:hover {
+	transform: translateY(-2px);
+}
+
+.section-separator {
+	border: 0;
+	height: 1px;
+	margin: 16px auto 12px;
+	width: min(520px, 90%);
+	background: linear-gradient(90deg, transparent, rgba(244, 168, 42, 0.45), transparent);
+}

@@ -1,36 +1,39 @@
+/// <reference lib="webworker" />
+
+const sw = self as unknown as ServiceWorkerGlobalScope;
 const CACHE_NAME = 'babyfoot-lottery-v3';
 const ASSETS = [
   './',
   './index.html',
-  './assets/css/styles.css',
-  './assets/scripts/app.js',
-  './assets/scripts/constants.js',
-  './assets/scripts/data.js',
-  './assets/scripts/dom.js',
-  './assets/scripts/listeners.js',
-  './assets/scripts/modals.js',
-  './assets/scripts/probabilities.js',
-  './assets/scripts/rarity.js',
-  './assets/scripts/result.js',
-  './assets/scripts/rules.js',
-  './assets/scripts/state.js',
-  './assets/scripts/utils.js',
-  './assets/scripts/weights.js',
-  './assets/scripts/wheel.js',
-  './assets/data/effects.json',
-  './assets/data/rules.json',
-  './assets/manifest.webmanifest',
-  './assets/icons/icon.svg'
+  './styles/styles.css',
+  './dist/scripts/app.js',
+  './dist/scripts/constants.js',
+  './dist/scripts/data.js',
+  './dist/scripts/dom.js',
+  './dist/scripts/listeners.js',
+  './dist/scripts/modals.js',
+  './dist/scripts/probabilities.js',
+  './dist/scripts/rarity.js',
+  './dist/scripts/result.js',
+  './dist/scripts/rules.js',
+  './dist/scripts/state.js',
+  './dist/scripts/utils.js',
+  './dist/scripts/weights.js',
+  './dist/scripts/wheel.js',
+  './data/effects.json',
+  './data/rules.json',
+  './manifest.webmanifest',
+  './icons/icon.svg'
 ];
 
-self.addEventListener('install', (event) => {
+sw.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
-  self.skipWaiting();
+  sw.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
+sw.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
@@ -40,10 +43,10 @@ self.addEventListener('activate', (event) => {
       )
     )
   );
-  self.clients.claim();
+  sw.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
+sw.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') {
     return;
   }
@@ -53,13 +56,13 @@ self.addEventListener('fetch', (event) => {
 
   if (pathname === '/favicon.ico') {
     event.respondWith(
-      caches.match('./assets/icons/icon.svg').then((cached) => cached || fetch('./assets/icons/icon.svg'))
+      caches.match('./icons/icon.svg').then((cached) => cached || fetch('./icons/icon.svg'))
     );
     return;
   }
 
   if (pathname.startsWith('/data/')) {
-    requestUrl.pathname = `/assets${pathname}`;
+    requestUrl.pathname = pathname;
   }
 
   const normalizedRequest = requestUrl.toString() === event.request.url

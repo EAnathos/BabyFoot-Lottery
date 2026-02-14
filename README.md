@@ -18,12 +18,17 @@ BabyFoot Lottery est une application web statique qui affiche une roue d'effets.
 
 ## Demarrage rapide
 
-```bash
-# Python
-python -m http.server 8000
+1. Sous Windows, utilisez le script :
 
-# Node.js
-npx http-server -p 8000
+```bat
+build-and-serve.bat
+```
+
+Sur macOS/Linux, vous pouvez aussi utiliser :
+
+```bash
+chmod +x build-and-serve.sh
+./build-and-serve.sh
 ```
 
 Ouvrez ensuite `http://localhost:8000`.
@@ -36,7 +41,7 @@ Ouvrez ensuite `http://localhost:8000`.
 
 ## Configuration des effets
 
-Tout se passe dans [assets/data/effects.json](assets/data/effects.json).
+Tout se passe dans [data/effects.json](data/effects.json).
 
 Exemple :
 
@@ -74,12 +79,12 @@ Rareté :
 ## Structure du projet
 
 - [index.html](index.html) : page principale
-- [assets/css/styles.css](assets/css/styles.css) : styles et animations
-- [assets/scripts/app.js](assets/scripts/script.js) : logique de la roue et animations
-- [assets/data/effects.json](assets/data/effects.json) : liste et ponderation des effets
-- [assets/data/rules.json](assets/data/rules.json) : regles additionnelles
-- [service-worker.js](service-worker.js) : cache offline
-- [assets/manifest.webmanifest](assets/manifest.webmanifest) : metadonnees PWA
+- [styles/styles.css](styles/styles.css) : styles et animations
+- [scripts/app.ts](scripts/app.ts) : logique de la roue et animations (source TS)
+- [data/effects.json](data/effects.json) : liste et ponderation des effets
+- [data/rules.json](data/rules.json) : regles additionnelles
+- [service-worker.ts](service-worker.ts) : service worker (source TS)
+- [manifest.webmanifest](manifest.webmanifest) : metadonnees PWA
 
 Architecture :
 
@@ -87,18 +92,18 @@ Architecture :
 graph TD
   A[BabyFoot Lottery] --> B[index.html]
   A --> C[README.md]
-  A --> D[service-worker.js]
+  A --> D[service-worker.ts]
   A --> E[assets/]
-  E --> F[css/]
+  A --> F[styles/]
   F --> G[styles.css]
-  E --> H[scripts/]
-  H --> I[app.js]
-  E --> J[data/]
+  A --> H[scripts/]
+  H --> I[app.ts]
+  A --> J[data/]
   J --> K[effects.json]
   J --> L[rules.json]
-  E --> M[icons/]
+  A --> M[icons/]
   M --> N[icon.svg]
-  E --> O[manifest.webmanifest]
+  A --> O[manifest.webmanifest]
 ```
 
 ## Contribuer

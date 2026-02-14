@@ -14,21 +14,29 @@ import {
 import { showResult } from "./result.js";
 
 export function resizeCanvas() {
+  const canvas = dom.canvas;
+  if (!canvas) {
+    return;
+  }
   const maxSize = Math.min(window.innerWidth * 0.78, 520);
   const size = Math.max(240, Math.floor(maxSize));
-  dom.canvas.width = size;
-  dom.canvas.height = size;
+  canvas.width = size;
+  canvas.height = size;
   state.wheelRadius = Math.max(120, Math.floor(size / 2 - 18));
   state.centerCircleRadius = Math.max(18, Math.floor(size * 0.06));
 }
 
 export function drawWheel(rotation = 0) {
-  const centerX = dom.canvas.width / 2;
-  const centerY = dom.canvas.height / 2;
+  const canvas = dom.canvas;
+  if (!canvas || !ctx) {
+    return;
+  }
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
   const numSegments = state.effects.length;
   const { weights, totalWeight, anglePerWeight } = getWeightMeta();
 
-  ctx.clearRect(0, 0, dom.canvas.width, dom.canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (numSegments === 0 || totalWeight <= 0) {
     return;

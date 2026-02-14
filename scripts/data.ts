@@ -12,7 +12,7 @@ import { renderRules, showRulesLoadError } from "./rules.js";
 import { showLoadError } from "./result.js";
 
 export function loadEffects() {
-  fetch("assets/data/effects.json", { cache: "no-store" })
+  fetch("data/effects.json", { cache: "no-store" })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
@@ -56,7 +56,7 @@ export function loadEffects() {
 }
 
 export function loadRules() {
-  fetch("assets/data/rules.json", { cache: "no-store" })
+  fetch("data/rules.json", { cache: "no-store" })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
