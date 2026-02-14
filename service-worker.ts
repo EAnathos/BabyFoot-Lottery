@@ -1,11 +1,18 @@
 /// <reference lib="webworker" />
 
 const sw = self as unknown as ServiceWorkerGlobalScope;
-const CACHE_NAME = 'babyfoot-lottery-v3';
+const CACHE_NAME = 'babyfoot-lottery-v4';
 const ASSETS = [
   './',
   './index.html',
   './styles/styles.css',
+  './styles/base.css',
+  './styles/layout.css',
+  './styles/wheel.css',
+  './styles/result.css',
+  './styles/modal.css',
+  './styles/probabilities.css',
+  './styles/responsive.css',
   './dist/scripts/app.js',
   './dist/scripts/constants.js',
   './dist/scripts/data.js',
@@ -52,6 +59,14 @@ sw.addEventListener('fetch', (event) => {
   }
 
   const requestUrl = new URL(event.request.url);
+  if (requestUrl.protocol !== 'http:' && requestUrl.protocol !== 'https:') {
+    return;
+  }
+
+  if (requestUrl.origin !== sw.location.origin) {
+    return;
+  }
+
   const pathname = requestUrl.pathname;
 
   if (pathname === '/favicon.ico') {
