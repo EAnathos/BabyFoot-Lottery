@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 
 const sw = self as unknown as ServiceWorkerGlobalScope;
-const CACHE_NAME = 'babyfoot-lottery-v4';
+const CACHE_NAME = 'babyfoot-lottery-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -78,6 +78,14 @@ sw.addEventListener('fetch', (event) => {
 
   if (pathname.startsWith('/data/')) {
     requestUrl.pathname = pathname;
+  }
+
+  if (pathname.startsWith('/assets/css/')) {
+    requestUrl.pathname = `/styles/${pathname.slice('/assets/css/'.length)}`;
+  }
+
+  if (/^\/(base|layout|wheel|result|modal|probabilities|responsive)\.css$/u.test(pathname)) {
+    requestUrl.pathname = `/styles${pathname}`;
   }
 
   const normalizedRequest = requestUrl.toString() === event.request.url
