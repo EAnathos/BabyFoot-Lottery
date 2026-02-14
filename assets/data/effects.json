@@ -18,7 +18,7 @@
     },
     {
       "id": 2,
-      "name": "Hold Up !",
+      "name": "Hold Up!",
       "description": "Les centraux doivent lever les pieds vers le ciel !",
       "color": "#5DADE2",
       "goalsRequired": 1,
@@ -26,7 +26,7 @@
     },
     {
       "id": 3,
-      "name": "Penalty Shot",
+      "name": "Penalty Shot Blue",
       "description": "Pénalty pour les bleus !",
       "color": "#4F5BD5",
       "goalsRequired": 1,
@@ -34,7 +34,7 @@
     },
     {
       "id": 4,
-      "name": "Penalty Shot",
+      "name": "Penalty Shot Red",
       "description": "Pénalty pour les rouges !",
       "color": "#E74C3C",
       "goalsRequired": 1,
@@ -42,7 +42,7 @@
     },
     {
       "id": 5,
-      "name": "Repêche",
+      "name": "Second Chance",
       "description": "Repêchage autorisé !",
       "color": "#9B59B6",
       "goalsRequired": 1,
@@ -66,7 +66,7 @@
     },
     {
       "id": 8,
-      "name": "Petite bite",
+      "name": "That's Small!",
       "description": "Les pissetes sont autorisées !",
       "color": "#D35400",
       "goalsRequired": 1,
@@ -90,7 +90,7 @@
     },
     {
       "id": 11,
-      "name": "Néant ?",
+      "name": "Nothingness",
       "description": "Aucun effet, la roue a parlé !",
       "color": "#7F8C8D",
       "goalsRequired": 1,
@@ -98,7 +98,7 @@
     },
     {
       "id": 12,
-      "name": "Capotte",
+      "name": "No Mercy!",
       "description": "La prochaine gamelle vaut triple !",
       "color": "#27AE60",
       "goalsRequired": 1,
@@ -106,7 +106,7 @@
     },
     {
       "id": 13,
-      "name": "No rules here !",
+      "name": "No Rules Here!",
       "description": "Le prochain but contre son camps compte +1 !",
       "color": "#F39C12",
       "goalsRequired": 1,
@@ -114,7 +114,7 @@
     },
     {
       "id": 14,
-      "name": "Brézilienne",
+      "name": "Brazilian",
       "description": "Si tu marques, tu peux mettre un coup dans l'épaule de l'adversaire en face de toi !",
       "color": "#C0392B",
       "goalsRequired": 1,
@@ -130,7 +130,7 @@
     },
     {
       "id": 16,
-      "name": "Justice !",
+      "name": "Justice!",
       "description": "Le dernier point est annulé !",
       "color": "#E74C3C",
       "goalsRequired": 1,
@@ -138,7 +138,7 @@
     },
     {
       "id": 17,
-      "name": "Inversion !",
+      "name": "Score Swap!",
       "description": "Inversion des scores !",
       "color": "E74C3C",
       "goalsRequired": 1,
@@ -146,7 +146,7 @@
     },
     {
       "id": 18,
-      "name": "Attaque !",
+      "name": "Attack!",
       "description": "Le prochain but doit venir des attaquants uniquement.",
       "color": "#3498DB",
       "goalsRequired": 1,
@@ -154,7 +154,7 @@
     },
     {
       "id": 19,
-      "name": "Zéro Contrôle",
+      "name": "No Control",
       "description": "Interdiction de bloquer la balle, uniquement des frappes directes.",
       "color": "#E67E22",
       "goalsRequired": 1,
@@ -162,7 +162,7 @@
     },
     {
       "id": 20,
-      "name": "Gardien Aveugle",
+      "name": "Blind Goalkeeper",
       "description": "Le gardien joue les yeux fermés.",
       "color": "#95A5A6",
       "goalsRequired": 1,
@@ -170,7 +170,7 @@
     },
     {
       "id": 21,
-      "name": "Barre Gelée",
+      "name": "Frozen Bar",
       "description": "Chaque équipe choisit une barre à bloquer !",
       "color": "#5DADE2",
       "goalsRequired": 1,
@@ -178,7 +178,7 @@
     },
     {
       "id": 22,
-      "name": "Balle Chaude",
+      "name": "Hot Ball",
       "description": "À chaque tir, la barre utilisée doit être levée du sol et ne plus être utilisée.",
       "color": "#E74C3C",
       "goalsRequired": 1,
