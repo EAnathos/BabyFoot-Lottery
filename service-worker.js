@@ -1,7 +1,6 @@
 /// <reference lib="webworker" />
-
-const sw = self as unknown as ServiceWorkerGlobalScope;
-const CACHE_NAME = 'babyfoot-lottery-v5';
+const sw = self;
+const CACHE_NAME = 'babyfoot-lottery-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -13,20 +12,20 @@ const ASSETS = [
   './styles/modal.css',
   './styles/probabilities.css',
   './styles/responsive.css',
-  './dist/scripts/app.js',
-  './dist/scripts/constants.js',
-  './dist/scripts/data.js',
-  './dist/scripts/dom.js',
-  './dist/scripts/listeners.js',
-  './dist/scripts/modals.js',
-  './dist/scripts/probabilities.js',
-  './dist/scripts/rarity.js',
-  './dist/scripts/result.js',
-  './dist/scripts/rules.js',
-  './dist/scripts/state.js',
-  './dist/scripts/utils.js',
-  './dist/scripts/weights.js',
-  './dist/scripts/wheel.js',
+  './dist/app.js',
+  './dist/constants.js',
+  './dist/data.js',
+  './dist/dom.js',
+  './dist/listeners.js',
+  './dist/modals.js',
+  './dist/probabilities.js',
+  './dist/rarity.js',
+  './dist/result.js',
+  './dist/rules.js',
+  './dist/state.js',
+  './dist/utils.js',
+  './dist/weights.js',
+  './dist/wheel.js',
   './data/effects.json',
   './data/rules.json',
   './manifest.webmanifest',
@@ -67,43 +66,18 @@ sw.addEventListener('fetch', (event) => {
     return;
   }
 
-  const pathname = requestUrl.pathname;
-
-  if (pathname === '/favicon.ico') {
-    event.respondWith(
-      caches.match('./icons/icon.svg').then((cached) => cached || fetch('./icons/icon.svg'))
-    );
-    return;
-  }
-
-  if (pathname.startsWith('/data/')) {
-    requestUrl.pathname = pathname;
-  }
-
-  if (pathname.startsWith('/assets/css/')) {
-    requestUrl.pathname = `/styles/${pathname.slice('/assets/css/'.length)}`;
-  }
-
-  if (/^\/(base|layout|wheel|result|modal|probabilities|responsive)\.css$/u.test(pathname)) {
-    requestUrl.pathname = `/styles${pathname}`;
-  }
-
-  const normalizedRequest = requestUrl.toString() === event.request.url
-    ? event.request
-    : new Request(requestUrl.toString(), event.request);
-
   event.respondWith(
-    caches.match(normalizedRequest).then((cached) => {
+    caches.match(event.request).then((cached) => {
       if (cached) {
         return cached;
       }
-      return fetch(normalizedRequest).then((response) => {
+      return fetch(event.request).then((response) => {
         if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
         const responseClone = response.clone();
         caches.open(CACHE_NAME).then((cache) => {
-          cache.put(normalizedRequest, responseClone);
+          cache.put(event.request, responseClone);
         });
         return response;
       });
