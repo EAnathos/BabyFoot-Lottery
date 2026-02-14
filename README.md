@@ -93,7 +93,6 @@ graph TD
   A[BabyFoot Lottery] --> B[index.html]
   A --> C[README.md]
   A --> D[service-worker.ts]
-  A --> E[assets/]
   A --> F[styles/]
   F --> G[styles.css]
   A --> H[scripts/]
