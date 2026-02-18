@@ -202,7 +202,7 @@
     },
     {
       "id": 25,
-      "name": "Bannez le moi celui-là !",
+      "name": "BigFlo",
       "description": "Bannissez un joueur adverse. S'il touche la balle, penalty immédiat !",
       "color": "#FF4500",
       "goalsRequired": 1,
@@ -210,7 +210,7 @@
     },
     {
       "id": 26,
-      "name": "Attaquants et défenseurs liés",
+      "name": "DefAck",
       "description": "L'attaquant doit tenir un attaquant et un défenseur, et le défenseur doit tenir un attaquant et un défenseur !",
       "color": "#00CED1",
       "goalsRequired": 1,
@@ -250,7 +250,7 @@
     },
     {
       "id": 31,
-      "name": "Roulette obligatoire",
+      "name": "Spin Master",
       "description": "Chaque tir doit s'accompagner d'une roulette !",
       "color": "#BB8FCE",
       "goalsRequired": 1,
