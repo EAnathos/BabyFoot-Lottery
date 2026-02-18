@@ -54,7 +54,7 @@
       "description": "Inversez les mains !",
       "color": "#16A085",
       "goalsRequired": 1,
-      "weight": 10
+      "weight": 8
     },
     {
       "id": 7,
@@ -62,7 +62,7 @@
       "description": "Le prochain demi fera un Quadrimino !",
       "color": "#8E44AD",
       "goalsRequired": 1,
-      "weight": 10
+      "weight": 7
     },
     {
       "id": 8,
@@ -207,6 +207,54 @@
       "color": "#FF4500",
       "goalsRequired": 1,
       "weight": 5
+    },
+    {
+      "id": 26,
+      "name": "Attaquants et défenseurs liés",
+      "description": "L'attaquant doit tenir un attaquant et un défenseur, et le défenseur doit tenir un attaquant et un défenseur !",
+      "color": "#00CED1",
+      "goalsRequired": 1,
+      "weight": 5
+    },
+    {
+      "id": 27,
+      "name": "Freeze !",
+      "description": "La première équipe qui dit Freeze pendant la partie bloque l'autre équipe pendant 3 secondes !",
+      "color": "#34495E",
+      "goalsRequired": 1,
+      "weight": 5
+    },
+    {
+      "id": 28,
+      "name": "Ricochet",
+      "description": "Le prochain but doit toucher un rebord avant d'entrer dans le but !",
+      "color": "#9B59B6",
+      "goalsRequired": 1,
+      "weight": 5
+    },
+    {
+      "id": 29,
+      "name": "Gardien fantôme",
+      "description": "Le gardien doit lâcher la barre à chaque fois que la balle est dans le camp adverse !",
+      "color": "#A3E4D7",
+      "goalsRequired": 1,
+      "weight": 5
+    },
+    {
+      "id": 30,
+      "name": "Demi-tour",
+      "description": "Tous les joueurs doivent jouer dos au babyfoot jusqu'au prochain but !",
+      "color": "#F7DC6F",
+      "goalsRequired": 1,
+      "weight": 5
+    },
+    {
+      "id": 31,
+      "name": "Roulette obligatoire",
+      "description": "Chaque tir doit s'accompagner d'une roulette !",
+      "color": "#BB8FCE",
+      "goalsRequired": 1,
+      "weight": 2
     }
   ]
 }
