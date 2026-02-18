@@ -191,6 +191,22 @@
       "color": "#34495E",
       "goalsRequired": 1,
       "weight": 5
+    },
+    {
+      "id": 24,
+      "name": "Main dans la main",
+      "description": "Tous les alliés doivent se tenir la main pendant le jeu !",
+      "color": "#FF69B4",
+      "goalsRequired": 1,
+      "weight": 5
+    },
+    {
+      "id": 25,
+      "name": "Bannez le moi celui-là !",
+      "description": "Bannissez un joueur adverse. S'il touche la balle, penalty immédiat !",
+      "color": "#FF4500",
+      "goalsRequired": 1,
+      "weight": 5
     }
   ]
 }
