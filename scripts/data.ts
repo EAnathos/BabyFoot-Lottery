@@ -31,8 +31,10 @@ export function loadEffects() {
         const isNoWayy = weight === NO_WAYY_WEIGHT;
         const isLegendary = weight === LEGENDARY_WEIGHT;
         const isRare = weight <= RARE_WEIGHT && weight > LEGENDARY_WEIGHT;
+        // On retire goalsRequired si présent
+        const { goalsRequired, ...rest } = effect;
         return {
-          ...effect,
+          ...rest,
           isNoWayy,
           isRare,
           isLegendary,

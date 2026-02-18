@@ -6,3 +6,4 @@ export const DEFAULT_WEIGHT = 10;
 export const RARE_WEIGHT = 5;
 export const LEGENDARY_WEIGHT = 2;
 export const NO_WAYY_WEIGHT = 1;
+export const DOUBLE_EFFECT_CHANCE = 0.35;

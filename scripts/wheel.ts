@@ -5,6 +5,7 @@ import {
   SPIN_DURATION_VARIANCE,
   MIN_ROTATIONS,
   ROTATION_VARIANCE,
+  DOUBLE_EFFECT_CHANCE,
 } from "./constants.js";
 import {
   getWeightMeta,
@@ -12,6 +13,27 @@ import {
   pickWeightedEffect,
 } from "./weights.js";
 import { showResult } from "./result.js";
+
+// Nouvelle fonction utilitaire pour tirer deux effets distincts
+function pickTwoDistinctEffects() {
+  if (state.effects.length < 2) return [pickWeightedEffect()];
+  let first = pickWeightedEffect();
+  let second;
+  let tries = 0;
+
+  do {
+    second = pickWeightedEffect();
+    tries++;
+  } while (second === first && tries < 10);
+
+  if (second === first) {
+    // fallback, prend le suivant dans la liste
+    const idx = state.effects.indexOf(first);
+    second = state.effects[(idx + 1) % state.effects.length];
+  }
+  
+  return [first, second];
+}
 
 export function resizeCanvas() {
   const canvas = dom.canvas;
@@ -130,7 +152,12 @@ export function runSpin(finalRotation, winningEffect) {
     if (progress < 1) {
       requestAnimationFrame(animate);
     } else {
-      showResult(winningEffect);
+      // winningEffect peut être un tableau (double effet)
+      if (Array.isArray(winningEffect)) {
+        showResult(winningEffect);
+      } else {
+        showResult(winningEffect);
+      }
       state.isSpinning = false;
     }
   }
@@ -143,13 +170,23 @@ export function spinWheel() {
     return;
   }
 
+  // Probabilité de double effet configurable
+  const doubleEffect = Math.random() < DOUBLE_EFFECT_CHANCE;
+  let winningEffect, targetIndex, finalRotation;
+  
+  if (doubleEffect) {
+    const [first, second] = pickTwoDistinctEffects();
+    // On fait tourner la roue vers le premier effet (visuel)
+    winningEffect = [first, second];
+    targetIndex = state.effects.indexOf(first);
+  } else {
+    winningEffect = pickWeightedEffect();
+    targetIndex = state.effects.indexOf(winningEffect);
+  }
   const rotations = Math.floor(
     MIN_ROTATIONS + Math.random() * ROTATION_VARIANCE,
   ); // 5-9 full rotations
-  const winningEffect = pickWeightedEffect();
-  const targetIndex = state.effects.indexOf(winningEffect);
-  const finalRotation =
-    rotations * 2 * Math.PI + getRotationForIndex(targetIndex);
+  finalRotation = rotations * 2 * Math.PI + getRotationForIndex(targetIndex);
 
   runSpin(finalRotation, winningEffect);
 }

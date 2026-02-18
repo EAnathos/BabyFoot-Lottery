@@ -104,43 +104,62 @@ export function showLoadError() {
   dom.resultDisplay.classList.remove("hidden");
 }
 
-export function showResult(effect) {
+export function showResult(effectOrArray) {
   clearStunCountdown();
-  dom.effectName.textContent = effect.name;
-  dom.effectDescription.textContent = effect.description;
+  let effects = Array.isArray(effectOrArray) ? effectOrArray : [effectOrArray];
 
-  // Set background color based on effect
-  dom.resultDisplay.style.background = `linear-gradient(135deg, ${effect.color}88, ${effect.color}44)`;
-
-  if (effect.id === STUN_EFFECT_ID) {
-    setStunButtonVisibility(true);
-    resetStunButton();
+  // Affichage combiné si deux effets
+  if (effects.length === 2) {
+    dom.effectName.textContent = `${effects[0].name} + ${effects[1].name}`;
+    dom.effectDescription.innerHTML = `
+    ${effects[0].description}
+    ${effects[1].description}
+    `;
+    dom.resultDisplay.style.background = `linear-gradient(135deg, ${effects[0].color}88, ${effects[1].color}88, ${effects[0].color}44)`;
+    if (dom.rarityBadge) {
+      dom.rarityBadge.textContent = "Double Effet !";
+      dom.rarityBadge.classList.remove("is-hidden");
+    }
+    // Affiche uniquement le bouton stun si besoin
+    let hasStun = false;
+    effects.forEach((effect) => {
+      if (effect.id === STUN_EFFECT_ID) {
+        setStunButtonVisibility(true);
+        resetStunButton();
+        hasStun = true;
+      }
+    });
+    if (!hasStun) {
+      setStunButtonVisibility(false);
+    }
     setBonusStatus("", false);
-  } else if (typeof effect.goalsRequired === "number") {
-    dom.bonusStatus.classList.remove(STUN_TIMER_CLASS);
-    setStunButtonVisibility(false);
-    setBonusStatus(
-      `⚡ Durée: ${effect.goalsRequired} but${effect.goalsRequired === 1 ? "" : "s"}`,
-      true,
-    );
   } else {
-    setStunButtonVisibility(false);
-    setBonusStatus("", false);
-  }
-
-  if (dom.rarityBadge) {
-    if (effect.isNoWayy) {
-      dom.rarityBadge.textContent = "No Wayyy *";
-      dom.rarityBadge.classList.remove("is-hidden");
-    } else if (effect.isLegendary) {
-      dom.rarityBadge.textContent = "Légendaire *";
-      dom.rarityBadge.classList.remove("is-hidden");
-    } else if (effect.isRare) {
-      dom.rarityBadge.textContent = "Rare *";
-      dom.rarityBadge.classList.remove("is-hidden");
+    const effect = effects[0];
+    dom.effectName.textContent = effect.name;
+    dom.effectDescription.textContent = effect.description;
+    dom.resultDisplay.style.background = `linear-gradient(135deg, ${effect.color}88, ${effect.color}44)`;
+    if (effect.id === STUN_EFFECT_ID) {
+      setStunButtonVisibility(true);
+      resetStunButton();
+      setBonusStatus("", false);
     } else {
-      dom.rarityBadge.textContent = "Commun";
-      dom.rarityBadge.classList.remove("is-hidden");
+      setStunButtonVisibility(false);
+      setBonusStatus("", false);
+    }
+    if (dom.rarityBadge) {
+      if (effect.isNoWayy) {
+        dom.rarityBadge.textContent = "No Wayyy *";
+        dom.rarityBadge.classList.remove("is-hidden");
+      } else if (effect.isLegendary) {
+        dom.rarityBadge.textContent = "Légendaire *";
+        dom.rarityBadge.classList.remove("is-hidden");
+      } else if (effect.isRare) {
+        dom.rarityBadge.textContent = "Rare *";
+        dom.rarityBadge.classList.remove("is-hidden");
+      } else {
+        dom.rarityBadge.textContent = "Commun";
+        dom.rarityBadge.classList.remove("is-hidden");
+      }
     }
   }
 
